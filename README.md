@@ -1,6 +1,6 @@
-# **Edge AI License Plate Recognition System**
+# **Flushed **
 
-Real-time license plate detection and OCR running entirely on the edge using a Raspberry Pi 5 with AI acceleration.
+The Website for finding the best rated public and private restrooms near you
 
 ## **Demo**
 [![Demo Video](assets/thumbnail.png)](https://youtu.be/jM9ZgLdmsQY)
