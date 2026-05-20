@@ -1,0 +1,40 @@
+#smallProfile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-items: center;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    width: min-content;
+}
+
+#pfp {
+    border-radius: 100%;
+}
+
+#name {
+    font-size: 24px;
+    width: max-content;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#username {
+    font-size: 16px;
+    color: var(--gray);
+    margin-top: -10px;
+    padding-bottom: 15px;
+}
+
+#numReviews {
+    color: var(--gray);
+    font-size: 20px;
+    width: max-content;
+}
+
+hr {
+    border: 2px solid var(--darkest-blue);
+    width: 80%;
+    border-radius: 22px;
+}
