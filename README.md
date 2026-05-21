@@ -1,4 +1,4 @@
-## **Flushed **
+## **Flushed**
 
 The Website for finding the best rated public and private restrooms near you
 
@@ -16,7 +16,7 @@ The Website for finding the best rated public and private restrooms near you
 |-----------|------------|
 | Front End  | React.js     |
 | Backend | Django |
-| Server  | Hailo-8    |
+| Server  |  |
 | Containerization | [Docker](https://www.docker.com/) |
 
 
