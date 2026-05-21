@@ -1,12 +1,12 @@
 import './profileCard.css';
-import defaultPfp from '../../assets/largePfpDefault.png';
 
+import defaultPfp from '../../assets/largePfpDefault.png';
 import paper from '../../assets/rankIcons/whitePaper.svg';
 import toilet from '../../assets/rankIcons/whiteToilet.svg'
 import soap from '../../assets/rankIcons/whiteSoap.svg';
 import crown from '../../assets/rankIcons/whiteCrown.svg';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 function ProfileCard() {
     const [name, setName] = useState('Jane Doe');
@@ -25,21 +25,21 @@ function ProfileCard() {
             <img  src={defaultPfp}/>
             <form>
                 <div className='label-input'>
-                    <label >Display Name: </label>
-                    <input placeholder={name}/>
+                    <label >New Name: </label>
+                    <input type='text' placeholder={name}/>
                 </div>
                 
                 <div className='label-input'>
-                    <label>Email: </label>
-                    <input placeholder={email}/>
+                    <label>New Email: </label>
+                    <input type='email' placeholder={email}/>
                 </div>
                 
                 <div className='label-input'>
-                    <label>Password: </label>
-                    <input placeholder='**********'/>
+                    <label>New Password: </label>
+                    <input type='password' placeholder='●●●●●●●●●●'/>
                 </div>
 
-                <input type='button' id='profile-submit' value={'Save Changes'} onClick={handleSubmit}/>
+                <button type='submit' id='profile-submit' onSubmit={handleSubmit()}>Save Changes</button>
             </form>
 
             <div id='rank-bar'>

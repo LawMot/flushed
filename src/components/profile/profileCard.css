@@ -25,7 +25,7 @@ form {
     justify-items: center;
     align-items: center;
     gap: 30px;
-    width: 75%;
+    width: 70%;
     place-self: center;
     padding-top: 40px;
     padding-bottom: 40px;
@@ -41,16 +41,20 @@ form {
     border-radius: 20px;
     font-size: 20px;
     margin-top: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 8px;
+    padding-bottom:8px;
     cursor: pointer;
+    font-family: inherit;
+    min-width: fit-content;
 }
 
 label {
     font-size: 24px;
     text-align: end;
     min-width: fit-content;
-    width: 156px;
+    width: 162px;
 }
 
 .label-input {
