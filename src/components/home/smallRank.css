@@ -1,0 +1,8 @@
+#rank {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    color: var(--darkest-blue);
+    width: min-content;
+    font-size: 24px;
+}
