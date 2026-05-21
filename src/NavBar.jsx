@@ -1,19 +1,18 @@
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './NavBar.css'
 
-function NavBar({ logo, onNavigate, onCreateReview }) {
+function NavBar({ logo, onCreateReview }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [recentSearches, setRecentSearches] = useState('')
+  const navigate = useNavigate()
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     const q = searchQuery.trim()
     if (!q) return
     setRecentSearches((prev) => (prev ? `${prev},${q}` : q))
-  }
-
-  const handleNav = (page) => {
-    if (onNavigate) onNavigate(page)
+    navigate(`/search?q=${encodeURIComponent(q)}`)
   }
 
   return (
@@ -23,7 +22,6 @@ function NavBar({ logo, onNavigate, onCreateReview }) {
           {logo && <img className="navbar-logo" src={logo} alt="flushed logo" />}
           <span className="navbar-title">flushed</span>
         </div>
-
         <form className="navbar-search" onSubmit={handleSearchSubmit}>
           <svg
             className="navbar-search-icon"
@@ -48,31 +46,11 @@ function NavBar({ logo, onNavigate, onCreateReview }) {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </form>
-
         <div className="navbar-links">
-          <button
-            type="button"
-            className="navbar-link"
-            onClick={() => handleNav('home')}
-          >
-            Home
-          </button>
-          <button
-            type="button"
-            className="navbar-link"
-            onClick={() => handleNav('reviews')}
-          >
-            Reviews
-          </button>
-          <button
-            type="button"
-            className="navbar-link"
-            onClick={() => handleNav('profile')}
-          >
-            Profile
-          </button>
+          <Link className="navbar-link" to="/home">Home</Link>
+          <Link className="navbar-link" to="/reviews">Reviews</Link>
+          <Link className="navbar-link" to="/profile">Profile</Link>
         </div>
-
         <button
           type="button"
           className="navbar-create"
