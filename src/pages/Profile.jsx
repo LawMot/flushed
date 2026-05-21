@@ -1,6 +1,10 @@
-function Profile() {
+ import ProfileCard from "../components/profile/profileCard";
+ 
+ function Profile() {
     return (
-        <div>Profile Page</div>
+        <div >
+            <ProfileCard/>
+        </div>
     )
 }
 
