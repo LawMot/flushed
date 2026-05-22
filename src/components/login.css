@@ -1,74 +1,87 @@
-.parent {
+.login-parent {
   display: flex;
+  flex-direction: column;
   justify-content: center; 
   align-items: center;    
-  min-height: 100vh;
+  min-height: 90vh;
+  margin-top: 60px;
 }
 
-.info {
+.login-center {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  margin-bottom: 30px;
+}
+
+.login-container {
+  width: 60%;
+  height: 540px;
+  background-image: linear-gradient(to bottom, #90E0EF, #E5FAFF);
+  border-radius: 25px;
+  font-size: xx-large;
+  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.20);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   align-self: center;
+  gap: 10px;
 }
 
-.input {
+.login-input {
   display: flex;
-  padding-bottom: 20px;
-  justify-content: end;
+  padding-bottom: 15px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-input[type=email] {
-  border-color: #90E0EF;
-  border-radius: 15px;
-  border-style: solid;
-  width: 300px;
-}
-input[type=text] {
-  border-color: #90E0EF;
-  border-radius: 15px;
-  border-style: solid;
-  width: 300px;
+.login-input label {
+  width: 150px;
+  font-size: large; 
+  text-align: end;
 }
 
-input[type=password] {
+.login-info {
   border-color: #90E0EF;
-  border-radius: 15px;
+  border-radius: 30px;
   border-style: solid;
-  width: 300px;
+  width: 300px;            /* All input boxes remain perfectly uniform */
+  padding: 5px 4px;
+  outline: none;
+  flex-shrink: 0;
+  font-size: medium;
 }
 
-input[type=submit] {
+
+.login {
   background-color: #90E0EF;
   border-radius: 30px;
-  border-style: none;
-  font-size: x-large;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  display: flex;
-  justify-self: center;
+  font-size: large;
   cursor: pointer;
+  width: 120px;
+  margin-top: 10px;
 }
 
-.switch {
+.login-switch {
   background-color: #ffffff00;
-  font-size: medium;
-  border-style: none;
-  margin-top: 0px;
-  border-radius: 20px;
-  padding: 5px;
+  font-size: small;
   text-emphasis: none;
   color: black;
   text-decoration: none;
 }
 
-.switch:hover {
-  background-color: #ffffff55;
+.login-switch:hover {
+  color: #817f7f;
 
 }
 
-.small-text {
-  font-size: small;
+.login-small-text {
+  font-size: medium;
+  margin-top: 10px;
+}
+
+#createAcc {
+  width: 80%;
 }
