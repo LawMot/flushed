@@ -1,4 +1,4 @@
-import BathroomProfile from "../components/BathroomProfile";
+import BathroomProfile from "../components/bathoom/BathroomProfile";
 
 function Bathroom() {
     return (

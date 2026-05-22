@@ -3,8 +3,7 @@
   flex-direction: column;
   justify-content: center; 
   align-items: center;    
-  min-height: 90vh;
-  margin-top: 60px;
+  margin-top: 100px;
 }
 
 .login-center {
@@ -14,13 +13,10 @@
   margin-bottom: 30px;
 }
 
-.login-container {
+#login-container {
   width: 60%;
   height: 540px;
-  background-image: linear-gradient(to bottom, #90E0EF, #E5FAFF);
-  border-radius: 25px;
   font-size: xx-large;
-  box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.20);
   display: flex;
   flex-direction: column;
   justify-content: center;

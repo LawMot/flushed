@@ -1,12 +1,14 @@
 import "./BathroomProfile.css"
 
-import female from "../assets/genderIcons/largeGrayFemale.svg";
-import male from "../assets/genderIcons/largeGrayMale.svg";
-import neutral from "../assets/genderIcons/largeGrayNeutral.svg";
+import female from "../../assets/genderIcons/largeGrayFemale.svg";
+import male from "../../assets/genderIcons/largeGrayMale.svg";
+import neutral from "../../assets/genderIcons/largeGrayNeutral.svg";
+
+import location from '../../assets/location.svg'
 
 import { useState } from "react";
 
-import ReviewBox from "../ReviewBox"
+import ReviewBox from "./ReviewBox"
 
 function Stars({ value = 0, max = 5 }) {
   return (
@@ -51,7 +53,9 @@ function BathroomProfile(
             <div className="bathroom-container">
                 <div className="bathroom-col1"> 
                     <h2 className="bathroom-label">
-                        The Hub<span id="floor">1st Floor</span>
+                        <img src={location} alt="location icon" id="bathroom-location-icon"/>
+                        The Hub
+                        <span id="floor">1st Floor</span>
                     </h2>
                     <div className="bathroom-rates">
                         <div className="bathroom-ratings">
@@ -99,6 +103,7 @@ function BathroomProfile(
             </div>
             <div className="reviews">
                 <ReviewBox 
+                    name={"Jane Doe"}
                     username={"janedoe"}
                     review={"this place rlly rlly sucks, the toilet paper is always out and its so busy go to another restroom pls listen to me"}
                     supplies = {3}

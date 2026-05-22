@@ -4,8 +4,8 @@
   gap: 12px;
   padding: 16px;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--bg);
+  border-radius: 22px;
+  background: var(--blue);
   box-sizing: border-box;
   text-align: left;
   max-width: 100%;
@@ -52,8 +52,8 @@
 .review-text-box {
   flex: 1 1 auto;
   min-width: 0;
-  background: var(--review-blue);
-  border-radius: 10px;
+  background: white;
+  border-radius: 22px;
   padding: 12px 14px;
   height: 140px;
   box-sizing: border-box;
