@@ -7,7 +7,7 @@ function CreateAccount() {
         <>
         <div className='login-parent'>
             <h2>For finding the best rated public and private restrooms near you!</h2>
-            <div className="login-container"> 
+            <div id="login-container" className='gradient' style={{height: 574, fontSize: 36}}> 
                 <div className='login-center'>Create An Account</div>
                 <form id="createAcc">
                     <div className='login-input'>

@@ -38,12 +38,13 @@
 .bathroom-label {
     display: flex;
     gap: 10px;
-    justify-content: center;
+    justify-content: space-around;
     background-color: white;
     width: 250px;
-    border-radius: 15px;
-    padding: 15px;
+    border-radius: 22px;
+    padding: 10px;
     margin-top: 20px;
+    align-items: center;
 }
 
 #floor {
@@ -104,4 +105,8 @@
 
 .bathroom-star.filled {
   color: #f5b400;
+}
+
+#bathroom-location-icon {
+    width: 35px;
 }
