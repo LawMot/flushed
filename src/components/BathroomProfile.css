@@ -1,0 +1,107 @@
+.bathroom-parent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;   
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.bathroom-container {
+    width: 80%;
+    height: 400px;
+    background-image: linear-gradient(to bottom, #90E0EF, #E5FAFF);
+    border-radius: 25px;
+    font-size: xx-large;
+    box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.20);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.bathroom-col1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+
+}
+
+.bathroom-col2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    
+}
+
+.bathroom-label {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    background-color: white;
+    width: 250px;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+#floor {
+    font-size: 20px;
+    color:#00B4D8;
+}
+
+.bathroom-rates {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.bathroom-image {
+    background-color: rgba(180, 172, 172, 0.616);
+    margin-top: 20px;
+    width: 250px;
+    height: 250px;
+    border-radius: 30px;
+}
+
+#bathroom-sort {
+    font-size: medium;
+    margin: 10px;
+    color: #4D4D4D;
+}
+
+.bathroom-gender {
+    display: flex;
+    gap: 30px;
+}
+
+.bathroom-icon {
+    padding: 5px;
+    border-radius: 15px;
+}
+
+.bathroom-icon:hover {
+    background-color: #4d4d4d36;
+}
+.bathroom-icon.active{
+    background-color: #4d4d4d36;
+}
+
+.bathroom-ratings {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: x-large;
+    margin: 15px;
+}
+
+.bathroom-star {
+    font-size: xx-large;
+    color:#00B4D8;
+}
+
+.bathroom-star.filled {
+  color: #f5b400;
+}
