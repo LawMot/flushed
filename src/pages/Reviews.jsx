@@ -1,6 +1,14 @@
+import './Reviews.css'
+import ReviewBox from '../components/bathoom/ReviewBox';
+
 function Reviews() {
     return (
-        <div>Reviews Page</div>
+        <div id="reviews-page">
+            <p id="page-title">My Reviews</p>
+            <div>
+                <ReviewBox/>
+            </div>
+        </div>
     )
 }
 

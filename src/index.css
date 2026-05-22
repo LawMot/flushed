@@ -73,3 +73,9 @@ p {
   border-radius: 22px;
   box-shadow: var(--shadow);
 }
+
+#page-title {
+  text-align: center;
+  font-size: 48px;
+  padding: 30px;
+}
