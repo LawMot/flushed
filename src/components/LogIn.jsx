@@ -1,26 +1,35 @@
 import './login.css'
 //import { useState } from "react";
 
-function LogIn() {
+import { useNavigate } from "react-router-dom"; 
 
+function LogIn() {
+    const navigate = useNavigate(); 
+
+    const handleSubmit = (event) => {
+        event.preventDefault(); 
+        
+        navigate('/home');
+    };
     return (
         <>
-        <div className='parent'>
-        <div className="container info"> 
-            <div className='input'>Log In</div>
-            <form>
-            <div className='input'>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email"/>
+        <div className='login-parent'>
+             <h2>For finding the best rated public and private restrooms near you!</h2>
+        <div className="login-container"> 
+            <div className='login-center'>Log In</div>
+            <form className='login-center' onSubmit={handleSubmit}>
+            <div className='login-input'>
+                <label htmlFor="email">Email:</label>
+                <input type="email" id="email" name="email" className='login-info'/>
             </div>
-            <div className='input'>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password"/>
+            <div className='login-input'>
+                <label htmlFor="password">Password:</label>
+                <input type="password" id="password" name="password" className='login-info'/>
             </div>
-            <input type="submit" value="Log In"/>
+            <input type="submit" value="Log In" className='login'/>
             </form>
-            <p className='small-text'>Don't have an account?</p>
-            <a className='switch' href='/'>Create Account</a>
+            <p className='login-small-text'>Don't have an account?</p>
+            <a className='login-switch' href='/signUp'>Create Account</a>
         </div>
         </div>
         </>
