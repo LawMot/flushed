@@ -6,6 +6,8 @@ import neutral from "../assets/genderIcons/largeGrayNeutral.svg";
 
 import { useState } from "react";
 
+import ReviewBox from "../ReviewBox"
+
 function Stars({ value = 0, max = 5 }) {
   return (
     <span className="review-stars" aria-label={`${value} out of ${max} stars`}>
@@ -96,11 +98,18 @@ function BathroomProfile(
                 </div>
             </div>
             <div className="reviews">
-                {filteredReviews.map((review) => (
+                <ReviewBox 
+                    username={"janedoe"}
+                    review={"this place rlly rlly sucks, the toilet paper is always out and its so busy go to another restroom pls listen to me"}
+                    supplies = {3}
+                    footTraffic = {5}
+                    cleanliness = {4}
+                    aesthetic = {2}/>
+                {/* {filteredReviews.map((review) => (
                     <div key={review.id}>
                         <p>{review.text}</p>
                     </div>
-                ))}
+                ))} */}
                 </div>
         </div>
         </>
