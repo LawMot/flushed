@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
 
+.container {
+    width: 50%;
+    height: 550px;
+    background-image: linear-gradient(to bottom, #90E0EF, #E5FAFF);
+    border-radius: 25px;
+    font-size: xx-large;
+    box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.20);
+}
+
+* {
+  font-family:  "Cal Sans", sans-serif;
+}
+
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;

@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {Routes, Route } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
@@ -11,7 +11,6 @@ import Bathroom from './pages/Bathroom';
 
 function App() {
   return (
-    <BrowserRouter>
       <Routes>
         <Route path='/' element={<LogIn/>}/>
         <Route path='/home' element={<Home/>}/>
@@ -22,7 +21,6 @@ function App() {
         <Route path='/editReview' element={<EditReview/>}/>
         <Route path='/bathroom' element={<Bathroom/>}/>
       </Routes>
-    </BrowserRouter>
   )
 }
 
