@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
 
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --nav-bar-blue: #90E0EF;
+  --darkest-blue: #00B4D8;
+  --lighter-blue: #90E0EF;
+  --lightest-blue: #E5FAFF;
+  --blue: #CAF0F8;
+  --yellow: #FFCB64;
+  --gray: #4D4D4D;
+  --light-gray: #939393;
+    --nav-bar-blue: #90E0EF;
+
   --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.20);
 
   font-family: 'Cal Sans', sans-serif;
   font: 18px/145% ;
@@ -36,7 +35,6 @@ body {
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
-  min-height: 100svh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -75,4 +73,10 @@ p {
   background-image: linear-gradient(to bottom, var(--lighter-blue), var(--lightest-blue));
   border-radius: 22px;
   box-shadow: var(--shadow);
+}
+
+#page-title {
+  text-align: center;
+  font-size: 48px;
+  padding: 30px;
 }

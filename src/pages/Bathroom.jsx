@@ -1,6 +1,8 @@
+import BathroomProfile from "../components/bathoom/BathroomProfile";
+
 function Bathroom() {
     return (
-        <div>Bathroom Page</div>
+       <div> <BathroomProfile /> </div>
     )
 }
 

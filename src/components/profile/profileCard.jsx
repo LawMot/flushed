@@ -25,18 +25,18 @@ function ProfileCard() {
             <img  src={defaultPfp}/>
             <form>
                 <div className='label-input'>
-                    <label >New Name: </label>
-                    <input type='text' placeholder={name}/>
+                    <label className='profile-label' >New Name: </label>
+                    <input type='text' placeholder={name} className='profile-input'/>
                 </div>
                 
                 <div className='label-input'>
-                    <label>New Email: </label>
-                    <input type='email' placeholder={email}/>
+                    <label className='profile-label'>New Email: </label>
+                    <input type='email' placeholder={email} className='profile-input'/>
                 </div>
                 
                 <div className='label-input'>
-                    <label>New Password: </label>
-                    <input type='password' placeholder='●●●●●●●●●●'/>
+                    <label className='profile-label'>New Password: </label>
+                    <input type='password' placeholder='●●●●●●●●●●' className='profile-input'/>
                 </div>
 
                 <button type='submit' id='profile-submit' onSubmit={handleSubmit()}>Save Changes</button>

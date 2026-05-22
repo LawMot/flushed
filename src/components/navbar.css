@@ -1,16 +1,18 @@
-.navbar {
+#navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  width: full;
+  width: 100%;
   height: 75px;
-  background: var(--nav-bar-blue);
+  background: var(--lighter-blue);
   z-index: 1000;
   display: flex;
   align-items: center;
   box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
+  border-radius: 0px;
+  box-shadow: var(--shadow);
 }
 
 .navbar-inner {
@@ -23,26 +25,21 @@
   box-sizing: border-box;
 }
 
-.navbar-brand {
+#navbar-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+  gap: 2px;
 }
 
 .navbar-logo {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
 }
 
 .navbar-title {
-  font-family: var(--cal-sans);
   font-weight: 700;
-  font-size: 40px;
-  color: #000;
-  letter-spacing: 2px;
-  filter: drop-shadow(0px 4px 0px rgba(0, 0, 0, 0.2));
+  font-size: 36px;
 }
 
 .navbar-search {
@@ -50,8 +47,8 @@
   max-width: 370px;
   margin-left: 38px;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
   background: #fff;
   border-radius: 999px;
   padding: 10px 22px;
@@ -69,9 +66,10 @@
   border: none;
   outline: none;
   background: transparent;
-  font-family: var(--cal-sans);
   font-size: 16px;
   color: #333;
+  border: 0;
+  font-family: inherit;
 }
 
 .navbar-search-input::placeholder {
@@ -80,6 +78,7 @@
 }
 
 .navbar-links {
+  font-family: var(--cal-sans);
   display: flex;
   align-items: center;
   flex: 1;
@@ -90,8 +89,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-family: var(--cal-sans);
-  font-size: 19px;
+  font-size: 18px;
   font-weight: 700;
   color: #000;
   padding: 6px 4px;
@@ -105,11 +103,11 @@
 }
 
 .navbar-create {
+  font-family: var(--cal-sans);
   flex-shrink: 0;
   background: #fff;
   border: none;
   cursor: pointer;
-  font-family: var(--cal-sans);
   font-weight: 700;
   font-size: 20px;
   color: #000;

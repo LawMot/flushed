@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './navbar.css'
-import logoToilet from '../assets/logoToilet.svg'
-import CreateReview from '../pages/CreateReview'
+import logoToilet from '../assets/logoToilet.svg';
+import CreateReview from '../pages/CreateReview';
+import magnifying from "../assets/searchIcon.svg";
 
 function NavBar({ logo, onCreateReview }) {
   const [searchQuery, setSearchQuery] = useState('')
@@ -24,28 +25,15 @@ function NavBar({ logo, onCreateReview }) {
   }
 
   return (
-    <nav className="navbar">
+    <nav id="navbar">
       <div className="navbar-inner">
-        <div className="navbar-brand">
-          {logo && <img className="navbar-logo" src={logo} alt="flushed logo" />}
-          <span className="navbar-title">f <img src={logoToilet} alt="l" className="logo-toilet"/> ushed</span>
-        </div>
+        <Link to="/" className="navbar-link" id='navbar-brand'>
+          <span className="navbar-title">f</span>
+          <img className="navbar-logo" src={logoToilet} alt="flushed toilet logo" />
+          <span className="navbar-title">ushed</span>
+        </Link>
         <form className="navbar-search" onSubmit={handleSearchSubmit}>
-          <svg
-            className="navbar-search-icon"
-            viewBox="0 0 24 24"
-            width="20"
-            height="20"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
+          <img src={magnifying} alt='search bar magnifying glass'/>
           <input
             type="text"
             className="navbar-search-input"
