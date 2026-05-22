@@ -1,13 +1,20 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import logo from '../assets/logoToilet.svg'
-import magnifying from '../assets/searchIcon.svg'
 import './navbar.css'
+import logoToilet from '../assets/logoToilet.svg';
+import CreateReview from '../pages/CreateReview';
+import magnifying from "../assets/searchIcon.svg";
 
-function NavBar({ onCreateReview }) {
+function NavBar({ logo, onCreateReview }) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [recentSearches, setRecentSearches] = useState('')
+  const [, setRecentSearches] = useState('')
+  const [showCreate, setShowCreate] = useState(false)
   const navigate = useNavigate()
+
+  const handleCreateReview = () => {
+    setShowCreate(true)
+    onCreateReview?.()
+  }
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
@@ -22,7 +29,7 @@ function NavBar({ onCreateReview }) {
       <div className="navbar-inner">
         <Link to="/" className="navbar-link" id='navbar-brand'>
           <span className="navbar-title">f</span>
-          <img className="navbar-logo" src={logo} alt="flushed toilet logo" />
+          <img className="navbar-logo" src={logoToilet} alt="flushed toilet logo" />
           <span className="navbar-title">ushed</span>
         </Link>
         <form className="navbar-search" onSubmit={handleSearchSubmit}>
@@ -43,11 +50,17 @@ function NavBar({ onCreateReview }) {
         <button
           type="button"
           className="navbar-create"
-          onClick={onCreateReview}
+          onClick={handleCreateReview}
         >
           Create Review
         </button>
       </div>
+
+      <CreateReview
+        open={showCreate}
+        onClose={() => setShowCreate(false)}
+        onSave={(data) => console.log('Review data from navbar:', data)}
+      />
     </nav>
   )
 }

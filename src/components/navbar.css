@@ -9,6 +9,7 @@
   z-index: 1000;
   display: flex;
   align-items: center;
+  box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   border-radius: 0px;
   box-shadow: var(--shadow);
@@ -31,10 +32,9 @@
 }
 
 .navbar-logo {
-  width: 31px;
+  width: 32px;
   height: 32px;
   object-fit: contain;
-  padding-left: 4px;
 }
 
 .navbar-title {
@@ -44,7 +44,8 @@
 
 .navbar-search {
   flex: 1 1 auto;
-  max-width: 560px;
+  max-width: 370px;
+  margin-left: 38px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,7 +53,7 @@
   border-radius: 999px;
   padding: 10px 22px;
   box-sizing: border-box;
-  height: 48px;
+  height: 40px;
 }
 
 .navbar-search-icon {
@@ -77,6 +78,7 @@
 }
 
 .navbar-links {
+  font-family: var(--cal-sans);
   display: flex;
   align-items: center;
   flex: 1;
@@ -101,16 +103,18 @@
 }
 
 .navbar-create {
+  font-family: var(--cal-sans);
   flex-shrink: 0;
   background: #fff;
   border: none;
   cursor: pointer;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 20px;
   color: #000;
   padding: 12px 24px;
   border-radius: 999px;
   height: 48px;
+  letter-spacing: 2px;
 }
 
 .navbar-create:hover {
