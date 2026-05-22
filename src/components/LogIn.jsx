@@ -15,7 +15,7 @@ function LogIn() {
         <>
         <div className='login-parent'>
              <h2>For finding the best rated public and private restrooms near you!</h2>
-        <div id="login-container" className='gradient'> 
+        <div id="login-container" className='gradient' style={{height: 490}}> 
             <div className='login-center'>Log In</div>
             <form className='login-center' onSubmit={handleSubmit}>
             <div className='login-input'>
