@@ -2,11 +2,18 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './navbar.css'
 import logoToilet from '../assets/logoToilet.svg'
+import CreateReview from '../pages/CreateReview'
 
 function NavBar({ logo, onCreateReview }) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [setRecentSearches] = useState('')
+  const [, setRecentSearches] = useState('')
+  const [showCreate, setShowCreate] = useState(false)
   const navigate = useNavigate()
+
+  const handleCreateReview = () => {
+    setShowCreate(true)
+    onCreateReview?.()
+  }
 
   const handleSearchSubmit = (e) => {
     e.preventDefault()
@@ -55,11 +62,17 @@ function NavBar({ logo, onCreateReview }) {
         <button
           type="button"
           className="navbar-create"
-          onClick={onCreateReview}
+          onClick={handleCreateReview}
         >
           Create Review
         </button>
       </div>
+
+      <CreateReview
+        open={showCreate}
+        onClose={() => setShowCreate(false)}
+        onSave={(data) => console.log('Review data from navbar:', data)}
+      />
     </nav>
   )
 }
