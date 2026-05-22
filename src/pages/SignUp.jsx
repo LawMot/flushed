@@ -1,6 +1,7 @@
+import CreateAccount from "../components/CreateAccount";
 function SignUp() {
     return (
-        <div>Create Account Page</div>
+        <CreateAccount />
     )
 }
 
