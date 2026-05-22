@@ -45,9 +45,9 @@
 
 .login-info {
   border-color: #90E0EF;
-  border-radius: 30px;
+  border-radius: 15px;
   border-style: solid;
-  width: 300px;            /* All input boxes remain perfectly uniform */
+  width: 350px;
   padding: 5px 4px;
   outline: none;
   flex-shrink: 0;

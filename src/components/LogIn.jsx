@@ -14,6 +14,7 @@ function LogIn() {
     return (
         <>
         <div className='login-parent'>
+             <h2>For finding the best rated public and private restrooms near you!</h2>
         <div className="login-container"> 
             <div className='login-center'>Log In</div>
             <form className='login-center' onSubmit={handleSubmit}>
