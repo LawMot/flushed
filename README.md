@@ -7,17 +7,18 @@ The Website for finding the best rated public and private restrooms near you
 
 ## **Installation**
 ```bash
-  cd flushed/frontend   
+  cd final-project-flushed   
   npm install           
   npm run dev
 ```
+Navigate to http://localhost:5173/ on your web browser.
 
 ## **Tech Stack**
 
 | Component | Technology |
 |-----------|------------|
-| Front End  | React.js, Javascript, html, css|
-| Backend |mongodb, node.js |
+| Front End  | React.js, Javascript, HTML, CSS|
+| Backend | MongoDB, Node.js |
 
 
 Flushed is a campus restroom review platform. There are many restrooms around the UC Riverside campus.  Many restrooms on campus aren’t the cleanest, are infrequently stocked, and are inaccessible. Many students, especially, want a clean and accessible restroom, however, it is hard to know until you walk inside. There are many restrooms that are great but are unknown or hard to find. Flushed helps with this problem, allowing users to post and rate restrooms all over campus. This provides students with the information they need before going into a restroom.
