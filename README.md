@@ -7,9 +7,8 @@ The Website for finding the best rated public and private restrooms near you
 
 ## **Installation**
 ```bash
-#Our installation here
-  cd flushed/frontend   # or wherever your frontend folder is
-  npm install           # first time only
+  cd flushed/frontend   
+  npm install           
   npm run dev
 ```
 
