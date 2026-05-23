@@ -3,7 +3,7 @@
 The Website for finding the best rated public and private restrooms near you
 
 ## **Demo**
-[![Demo Video](assets/thumbnail.png)](https://youtu.be/jM9ZgLdmsQY)
+[Demo Video](https://drive.google.com/file/d/1l9BKmPGBYIDcdI0uchhMh1Oud-XzgzOf/view?usp=sharing)
 
 ## **Installation**
 ```bash
