@@ -1,8 +1,9 @@
 import './login.css'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 
 function LogIn() {
+    const [statusMessage, setStatusMessage] = useState('');
     const navigate = useNavigate(); 
      const [formData, setFormData] = useState({
         email: '',
@@ -43,27 +44,52 @@ function LogIn() {
         return Errors;
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault(); 
 
-         const validationErrors = validateForm();
+   async function login(event) {
+    event.preventDefault();
 
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
-        
+    const validationErrors = validateForm();
+
+    if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+        return;
+    }
+
+    const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: formData.email,
+            password: formData.password
+        })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+        localStorage.setItem('display_name', data.display_name);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('experience', data.experience);
+        localStorage.setItem('password', data.password);
         navigate('/home');
-    };
+    } else {
+        setStatusMessage(data.message || 'Login Failed');
+    }
+}
+
+    
     
     return (
         <>
-        <div className='login-parent'>
-             <h2>For finding the best rated public and private restrooms near you!</h2>
-        <div id="login-container" className='gradient' style={{height: 490}}> 
-            <div className='login-center'>Log In</div>
-            <form className='login-center' id="login" onSubmit={handleSubmit}>
-            <div className='login-input'>
+            <div className='login-parent'>
+                <h2>For finding the best rated public and private restrooms near you!</h2>
+                <div id="login-container" className='gradient' style={{height: 490}}> 
+                    <div className='login-center'>Log In</div>
+                    <form className='login-center' id="login" onSubmit={login}>
+                    <div className='login-input'>
                         <label htmlFor="email">Email: </label>
                         <div className='input-container'>
                             <input type="email" id="email" name="email" className='login-info' value={formData.email} onChange={handleChange} />
@@ -74,7 +100,7 @@ function LogIn() {
                             )}
                         </div>
                     </div>
-           <div className='login-input'>
+                <div className='login-input'>
                         <label htmlFor="password">Password:</label>
                         <div className='input-container'>
                             <input type="password" id="password" name="password"  className='login-info'value={formData.password} onChange={handleChange}/>
@@ -85,12 +111,15 @@ function LogIn() {
                             )}
                         </div>
                     </div>
-            <input type="submit" value="Log In" className='login'/>
-            </form>
-            <p className='login-small-text'>Don't have an account?</p>
-            <a className='login-switch' href='/signUp'>Create Account</a>
-        </div>
-        </div>
+                    <p className="error-message">
+                            {statusMessage}
+                    </p>
+                    <input type="submit" value="Log In" className='login'/>
+                    </form>
+                    <p className='login-small-text'>Don't have an account?</p>
+                    <a className='login-switch' href='/signUp'>Create Account</a>
+                </div>
+            </div>
         </>
     );
 }

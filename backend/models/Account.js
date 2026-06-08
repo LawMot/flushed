@@ -5,7 +5,10 @@ const AccountSchema = new mongoose.Schema({
 
     password: String,
     
-    eperience: String,
+    experience: {
+        type: Number,
+        default: 0
+    },
 
     email: String,
 

@@ -30,9 +30,6 @@ function CreateAccount() {
 
         if (!formData.dname.trim()) {
             Errors.dname = '*Display name is required';
-        } else if (formData.dname.trim().length < 4 || formData.dname.trim().length > 16) {
-            Errors.dname =
-                '*Display name must be between 4 and 16 characters';
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,9 +42,6 @@ function CreateAccount() {
 
         if (!formData.password) {
             Errors.password = '*Password is required';
-        } else if (formData.password.length < 8) {
-            Errors.password =
-                '*Password must be at least 8 characters';
         }
 
         if (!formData.confirmPassword) {
@@ -61,8 +55,8 @@ function CreateAccount() {
         return Errors;
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    async function signup(event) {
+        event.preventDefault();
 
         const validationErrors = validateForm();
 
@@ -73,16 +67,31 @@ function CreateAccount() {
 
         console.log('Form submitted:', formData);
 
-        // Later you'll send the data to your backend here
-        /*
-        await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
+        const dname = document.getElementById('dname').value;
+        const password = document.getElementById('password').value;
+
+        const response = await fetch(
+            'http://localhost:5000/signup',
+            {
+                method: 'POST',
+                headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        });
-        */
+                },
+
+                body: JSON.stringify({
+                    dname: formData.dname,
+                    email: formData.email,
+                    password: formData.password
+                    
+                })
+            }
+        );
+
+        if (response.ok) {
+            window.location.href = '/';
+        } else {
+            console.error('Signup failed');
+        }
     };
 
      return (
@@ -91,7 +100,7 @@ function CreateAccount() {
             <h2>For finding the best rated public and private restrooms near you!</h2>
             <div id="login-container" className='gradient' style={{height: 574, fontSize: 36}}> 
                 <div className='login-center'>Create An Account</div>
-                <form id="createAcc"  onSubmit={handleSubmit}>
+                <form id="createAcc"  onSubmit={signup}>
                     <div className='login-input'>
                         <label htmlFor="dname">Display Name:</label>
                         <div className='input-container'>
@@ -116,9 +125,9 @@ function CreateAccount() {
                     <div className='login-input'>
                         <label htmlFor="password">Password:</label>
                         <div className='input-container'>
-                            <input type="password" id="password" name="password"  className='login-info'value={formData.confirmPassword} onChange={handleChange}/>
+                            <input type="password" id="password" name="password"  className='login-info'value={formData.password} onChange={handleChange}/>
                                 <p className="error-message">
-                                    {errors.confirmPassword}
+                                    {errors.password}
                                 </p>
                         </div>
                     </div>
