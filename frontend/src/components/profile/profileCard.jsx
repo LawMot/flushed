@@ -6,14 +6,14 @@ import toilet from '../../assets/rankIcons/whiteToilet.svg'
 import soap from '../../assets/rankIcons/whiteSoap.svg';
 import crown from '../../assets/rankIcons/whiteCrown.svg';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function ProfileCard() {
-    const [name, setName] = useState('Jane Doe');
-    const [email, setEmail] = useState('janedoe@gmail.com');
+    const [name, setName] = useState(  localStorage.getItem('display_name') || '');
+    const [email, setEmail] = useState(localStorage.getItem('email') || '');
     const [rankName, setRankName] = useState('Newbie');
     const [rankProgress, setRankProgress] = useState(66);
-    const [experience, setExperience] = useState(20);
+    const [experience, setExperience] = useState(localStorage.getItem('experience') || '0');
     const [rankTotal, setRankTotal] = useState(30);
 
     function handleSubmit() {
@@ -61,6 +61,7 @@ function ProfileCard() {
 
                 <div id='full-rank'>{experience}/{rankTotal}</div>
             </div>
+            <button className='profile-logout'>Logout</button>
         </div>
     )
 };
