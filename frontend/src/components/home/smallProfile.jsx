@@ -5,8 +5,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 function SmallProfile() {
-    const [name, setName] = useState('Display Name');
-    const [xp, setXp] = useState(0);
+    const [name, setName] = useState(localStorage.getItem('display_name') || 'Display Name');
+    const [xp, setXp] = useState(localStorage.getItem('experience') || 0);
     const [reviews, setReviews] = useState(0);
     const [pfp, setpfp] = useState(defaultPfp);
 
@@ -22,9 +22,6 @@ function SmallProfile() {
 
     useEffect(() => {
         getReviews();
-        setName(localStorage.getItem('display_name'));
-        setXp(localStorage.getItem('experience'));
-        // setpfp(localStorage.getItem('profile_pic'));
     }, []);
 
     return (
