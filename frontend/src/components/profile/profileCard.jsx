@@ -1,6 +1,6 @@
 import './profileCard.css';
 
-import defaultPfp from '../../assets/largePfpDefault.png';
+import defaultPfp from '../../assets/defaultPfp.png';
 import paper from '../../assets/rankIcons/whitePaper.svg';
 import toilet from '../../assets/rankIcons/whiteToilet.svg'
 import soap from '../../assets/rankIcons/whiteSoap.svg';
