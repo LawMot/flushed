@@ -234,7 +234,7 @@ app.patch('/account/:userId/update-email', checkAuth, async(req, res) => {
     return res.status(404).json({ error: 'Account not found' });
   }
 
-  account.email= req.body.email;
+  account.email = req.body.email;
   await account.save();
   res.json(account);
 });
@@ -249,7 +249,19 @@ app.patch('/account/:userId/update-password', checkAuth, async(req, res) => {
   account.password = req.body.password;
   await account.save();
   res.json(account);
-})
+});
+
+app.patch('/account/:userId/update-pfp', checkAuth, async(req, res) => {
+  const account = await Account.findById(req.params.userId);
+
+  if (!account) {
+    return res.status(404).json({ error: 'Account not found' });
+  }
+
+  account.profile_pic = req.body.profile_pic;
+  await account.save();
+  res.json(account);
+});
 
 // const isAuthenticated = (req, res, next) => {
 //     if (req.isAuthenticated()) {

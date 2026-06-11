@@ -9,9 +9,10 @@ import crown from '../../assets/rankIcons/whiteCrown.svg';
 import { useState, useEffect } from 'react';
 
 function ProfileCard() {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [pfp, setPfp] = useState('');
+    const [name, setName] = useState(localStorage.getItem('display_name') || 'Display Name');
+    const [email, setEmail] = useState(localStorage.getItem('email') || 'Email');
+    const [pfp, setPfp] = useState(localStorage.getItem('pfp') || defaultPfp);
+    const [selectedPfp, setSelectedPfp] = useState(null);
     const [rankName, setRankName] = useState('Newbie');
     const [experience, setExperience] = useState( Number(localStorage.getItem('experience')) || 0);
     const [rankTotal, setRankTotal] = useState(30);
@@ -32,7 +33,7 @@ function ProfileCard() {
                     setName(user.display_name || 'Display Name');
                     setEmail(user.email || 'Email');
                     setExperience(user.experience || 0);
-                    setPfp(user.profile_pic || '');
+                    setPfp(user.profile_pic || defaultPfp);
 
                     localStorage.setItem(
                         'display_name',
@@ -43,8 +44,16 @@ function ProfileCard() {
                         user.email || ''
                     );
                     localStorage.setItem(
+                        'pfp',
+                        user.profile_pic || defaultPfp
+                    );
+                    localStorage.setItem(
                         'experience',
                         user.experience || 0
+                    );
+                    localStorage.setItem(
+                        'userId',
+                        user._id || user.userId || ''
                     );
 
                     if (user.googleId) {
@@ -154,6 +163,87 @@ function ProfileCard() {
         );
     }
 
+    async function compressImage(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 500; // max width/height
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Calculate new dimensions maintaining aspect ratio
+                    if (width > height) {
+                        if (width > maxSize) {
+                            height = Math.round((height * maxSize) / width);
+                            width = maxSize;
+                        }
+                    } else {
+                        if (height > maxSize) {
+                            width = Math.round((width * maxSize) / height);
+                            height = maxSize;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Export as JPEG with 80% quality to compress
+                    resolve(canvas.toDataURL('image/jpeg', 0.8));
+                };
+                img.onerror = () => reject(new Error('Failed to load image'));
+            };
+            reader.onerror = () => reject(new Error('Failed to read file'));
+        });
+    }
+
+    async function handlePfpSelect(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+            const compressedImage = await compressImage(file);
+            setSelectedPfp(compressedImage);
+        } catch (error) {
+            console.error('Image compression failed:', error);
+            alert('Failed to process image');
+        }
+    }
+
+    async function updatePfp() {
+        if (!selectedPfp) return;
+
+        const response = await fetch(
+            'http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-pfp',
+            {
+                method: 'PATCH',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    profile_pic: selectedPfp
+                })
+            }
+        );
+
+        if (response.ok) {
+            localStorage.setItem('pfp', selectedPfp);
+            setPfp(selectedPfp);
+            setSelectedPfp(null);
+            document.getElementById('profile-pic-upload').value = '';
+        } else {
+            console.log('something went wrong with pfp');
+        }
+    }
+
+
     async function handleSubmit(e) {
         e.preventDefault();
 
@@ -162,6 +252,7 @@ function ProfileCard() {
         if (!isGoogleUser) {
             await updateEmail();
             await updatePassword();
+            await updatePfp();
         }
 
         window.alert('Account Details Updated!');
@@ -184,14 +275,28 @@ function ProfileCard() {
             window.location.href = '/';
         }
     }
+
     return (
         <div className='gradient' id='profile-card'>
-            <img
-                src={pfp || defaultPfp}
-                alt='Profile'
-            />
-
             <form onSubmit={handleSubmit}>
+                <div>
+                    <input 
+                        id='profile-pic-upload' 
+                        type='file' 
+                        hidden 
+                        accept='image/png,image/jpeg'
+                        onChange={handlePfpSelect}
+                        disabled={isGoogleUser}
+                    />
+                    <label htmlFor='profile-pic-upload' id='profile-pic-input'>
+                            <img
+                                src={selectedPfp || pfp || defaultPfp}
+                                alt='Profile'
+                                id='profile-pic-preview'
+                            />
+                    </label>
+                </div>
+
                 <div className='label-input'>
                     <label className='profile-label'>
                         New Name:

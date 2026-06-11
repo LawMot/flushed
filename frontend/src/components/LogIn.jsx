@@ -25,7 +25,8 @@ function LogIn() {
                     if (data.user) {
                         localStorage.setItem('display_name', data.user.display_name);
                         localStorage.setItem('email', data.user.email);
-                        localStorage.setItem('userId', data.user.userId);
+                        localStorage.setItem('userId', data.user._id || data.user.userId || '');
+                        localStorage.setItem('pfp', data.user.profile_pic);
                     }
                     navigate('/home');
                 }
@@ -100,6 +101,7 @@ function LogIn() {
         localStorage.setItem('experience', data.experience);
         localStorage.setItem('password', data.password);
         localStorage.setItem('userId', data.userId);
+        localStorage.setItem('pfp', data.pfp);
         localStorage.setItem('role', data.role);
         if (data.role === 'admin') {
             navigate('/admin');

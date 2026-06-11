@@ -12,7 +12,10 @@ const AccountSchema = new mongoose.Schema({
 
     email: String,
 
-    profile_pic: String,
+    profile_pic: {
+        type: String,
+        default: 'http://localhost:5173/src/assets/defaultPfp.png'
+    },
 
     role: {
         type: String,

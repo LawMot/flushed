@@ -124,3 +124,27 @@ form {
     font-family: inherit;
     min-width: fit-content;
 }
+
+#profile-pic-input {
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    border-radius: 100%;
+}
+
+#profile-pic-preview {
+    max-width: 150px;
+    max-width: 150px;
+    border-radius: inherit;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+#profile-pic-input:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+#profile-pic {
+    border-radius: inherit;
+}
