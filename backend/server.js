@@ -32,6 +32,7 @@ mongoose.connect(process.env.MONGO_URI)
 });
 
 const Account = require('./models/Account');
+const Review = require('./models/Review');
 
 passport.use(
     new LocalStrategy(
@@ -111,7 +112,9 @@ app.post('/login', (req, res, next) => {
           display_name: account.display_name,
           email: account.email,
           experience: account.experience,
-          password: account.password
+          password: account.password,
+          userId: account._id,
+          pfp: account.profile_pic
         });
 
       });
@@ -127,6 +130,21 @@ app.post('/logout', function(req, res, next){
     res.redirect('/');
   });
 });
+
+app.get('/check-auth', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ authenticated: true, user: req.user });
+  } else {
+    res.json({ authenticated: false });
+  }
+});
+
+app.get('/reviews/:userId', checkAuth, async(req, res) => {
+  const reviews = await Review.find({
+    userId: req.params.userId
+  });
+  res.json(reviews);
+})
 
 const PORT = process.env.PORT || 5000;
 

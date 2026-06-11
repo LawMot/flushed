@@ -74,6 +74,7 @@ function LogIn() {
         localStorage.setItem('email', data.email);
         localStorage.setItem('experience', data.experience);
         localStorage.setItem('password', data.password);
+        localStorage.setItem('userId', data.userId);
         navigate('/home');
     } else {
         setStatusMessage(data.message || 'Login Failed');

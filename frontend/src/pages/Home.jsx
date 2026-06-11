@@ -5,7 +5,7 @@ import './Home.css'
 function Home() {
     return (
         <div id="home-page">
-            <SmallProfile name={"Jane Doe"} username={"janedoe"} xp={20} numReviews={3}/>
+            <SmallProfile/>
             <div id="home-column">
                 <p id="page-title">Home</p>
                 <ReviewBox/>

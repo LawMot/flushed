@@ -12,7 +12,7 @@ const AccountSchema = new mongoose.Schema({
 
     email: String,
 
-
+    profile_pic: String
 });
 
 module.exports = mongoose.model("Account", AccountSchema);
