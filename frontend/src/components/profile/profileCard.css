@@ -124,3 +124,19 @@ form {
     font-family: inherit;
     min-width: fit-content;
 }
+
+#profile-button {
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    border-radius: 100%;
+}
+
+#profile-button:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+#profile-pic {
+    border-radius: inherit;
+}

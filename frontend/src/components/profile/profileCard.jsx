@@ -186,10 +186,14 @@ function ProfileCard() {
     }
     return (
         <div className='gradient' id='profile-card'>
-            <img
-                src={pfp || defaultPfp}
-                alt='Profile'
-            />
+            <button id='profile-button'>
+                <img
+                    src={pfp || defaultPfp}
+                    alt='Profile'
+                    id='profile-pic'
+                />
+            </button>
+            
 
             <form onSubmit={handleSubmit}>
                 <div className='label-input'>

@@ -8,7 +8,7 @@ function SmallProfile() {
     const [name, setName] = useState(localStorage.getItem('display_name') || 'Display Name');
     const [xp, setXp] = useState(localStorage.getItem('experience') || 0);
     const [reviews, setReviews] = useState(0);
-    const [pfp, setpfp] = useState(defaultPfp);
+    const [pfp, setPfp] = useState(defaultPfp);
 
     async function getReviews() {
         const response = await fetch('http://localhost:5000/reviews/' + localStorage.getItem('userId'), { credentials: 'include' });
@@ -28,20 +28,25 @@ function SmallProfile() {
             })
             .then(data => {
                 if (data.success && data.user) {
-                    setName(data.user.display_name || 'Display Name');
-                    setXp(data.user.experience || 0);
-                    
-                    if (data.user.profile_pic) {
-                        setPfp(data.user.profile_pic);
-                    }
+                    const user = data.user;
 
-                    getReviews(data.user._id);
+                    localStorage.setItem('display_name', user.display_name);
+                    setName( user.display_name || 'Display Name');
+
+                    localStorage.setItem('experience', user.experience);
+                    setXp(user.experience || 0);
+                    
+                    localStorage.setItem('pfp', user.profile_pic)
+                    setPfp(user.profile_pic || defaultPfp);
+
+                    localStorage.setItem('userId', user.userId);
+                    getReviews();
                 }
             })
             .catch(err => {
                 console.error("Session verification failed in SmallProfile:", err);
             });
-    }, []);
+    });
 
     return (
         <div className='gradient' id='smallProfile'>
