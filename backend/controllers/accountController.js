@@ -24,13 +24,13 @@ async function createAccount(req, res) {
             message: "Error creating account",
             error: error.message
         });
-    
+
     }
 }
 
 async function updateAccount(req, res) {
     const updatedBook = await Account.findByIdAndUpdate(
-        req.params.id, 
+        req.params.id,
         req.body,
         { new: true }
     );

@@ -1,6 +1,6 @@
-require('dotenv').config(); // so we can use .env to store settings
+require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose'); // for mongodb
+const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
@@ -10,7 +10,7 @@ const reviewRoutes = require('./routes/reviews');
 const LocalStrategy = require('passport-local').Strategy;
 const app = express();
 
-app.use(cors({ // browsers block requests from different origins unless the server explicitly allows it
+app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true
 }));
@@ -35,8 +35,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
 const Account = require('./models/Account');
 const Review = require('./models/Review');
-
-
 
 passport.use(
     new LocalStrategy(
@@ -81,7 +79,6 @@ function checkAuth(req, res, next) {
 app.get('/', (req, res) => {
   res.json({ status: 'ok', message: 'Flushed backend is running' })
 });
-
 
 app.post('/signup', async (req, res) => {
   const account = await Account.create({

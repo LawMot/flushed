@@ -13,10 +13,10 @@ function SmallProfile() {
     async function getReviews() {
         const response = await fetch('http://localhost:5000/reviews/' + localStorage.getItem('userId'), { credentials: 'include' });
         const data = await response.json();
-        if (Array.isArray(data)) { 
-            setReviews(data.length) 
-        } else { 
-            setReviews(0); 
+        if (Array.isArray(data)) {
+            setReviews(data.length)
+        } else {
+            setReviews(0);
         }
     }
 

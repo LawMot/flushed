@@ -35,7 +35,7 @@ function ProfileCard() {
     async function updateName() {
         const newName = document.getElementById('display-name').value;
 
-        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-name', 
+        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-name',
         {
             method: 'PATCH',
             credentials: 'include',
@@ -54,7 +54,7 @@ function ProfileCard() {
     async function updateEmail() {
         const newEmail = document.getElementById('email').value;
 
-        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-email', 
+        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-email',
         {
             method: 'PATCH',
             credentials: 'include',
@@ -62,7 +62,7 @@ function ProfileCard() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: newEmail 
+                email: newEmail
             })
         });
 
@@ -73,7 +73,7 @@ function ProfileCard() {
     async function updatePassword() {
         const newPassword = document.getElementById('password').value;
 
-        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-password', 
+        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-password',
         {
             method: 'PATCH',
             credentials: 'include',
@@ -81,7 +81,7 @@ function ProfileCard() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                password: newPassword 
+                password: newPassword
             })
         });
 
@@ -124,12 +124,12 @@ function ProfileCard() {
                     <label className='profile-label' >New Name: </label>
                     <input id='display-name' type='text' placeholder={name} className='profile-input' defaultValue={name}/>
                 </div>
-                
+
                 <div className='label-input'>
                     <label className='profile-label'>New Email: </label>
                     <input id='email' type='email' placeholder={email} className='profile-input' defaultValue={email}/>
                 </div>
-                
+
                 <div className='label-input'>
                     <label className='profile-label'>New Password: </label>
                     <input id='password' type='password' placeholder='●●●●●●●●●●' className='profile-input' />

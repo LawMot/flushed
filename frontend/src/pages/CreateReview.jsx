@@ -73,7 +73,6 @@ function CreateReview({ open, onClose, onSave }) {
   const [descFocused, setDescFocused] = useState(false)
   const [saving, setSaving] = useState(false)
 
-
   useEffect(() => {
     if (!open) return
     const onKey = (e) => e.key === 'Escape' && onClose?.()

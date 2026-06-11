@@ -23,18 +23,17 @@ const reviewSchema = new mongoose.Schema(
     description: { type: String, trim: true, default: '' },
 
     image: {
-      data: { type: String }, 
-      contentType: { type: String }, 
+      data: { type: String },
+      contentType: { type: String },
     },
   },
-  
+
   {
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
   }
 )
-
 
 reviewSchema.virtual('dateAdded').get(function () {
   if (!this.createdAt) return null

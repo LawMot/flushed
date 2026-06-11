@@ -1,10 +1,10 @@
 import './login.css'
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 function LogIn() {
     const [statusMessage, setStatusMessage] = useState('');
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
      const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -44,7 +44,6 @@ function LogIn() {
         return Errors;
     };
 
-
    async function login(event) {
     event.preventDefault();
 
@@ -81,13 +80,11 @@ function LogIn() {
     }
 }
 
-    
-    
     return (
         <>
             <div className='login-parent'>
                 <h2>For finding the best rated public and private restrooms near you!</h2>
-                <div id="login-container" className='gradient' style={{height: 490}}> 
+                <div id="login-container" className='gradient' style={{height: 490}}>
                     <div className='login-center'>Log In</div>
                     <form className='login-center' id="login" onSubmit={login}>
                     <div className='login-input'>

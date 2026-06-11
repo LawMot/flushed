@@ -8,7 +8,6 @@ const {
   deleteReview,
 } = require('../controllers/reviewController')
 
-
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },

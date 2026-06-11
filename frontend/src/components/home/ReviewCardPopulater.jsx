@@ -2,19 +2,14 @@ import { useEffect, useState } from 'react'
 import ReviewBox from '../bathoom/ReviewBox'
 import { getRestroomPhoto } from '../../data/bathrooms'
 
-
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
-
 
 function imageSrc(image) {
   if (!image?.data || !image?.contentType) return undefined
   return `data:${image.contentType};base64,${image.data}`
 }
 
-
-
 const POLL_INTERVAL = 10000
-
 
 function buildQuery(filter) {
   if (!filter) return ''
@@ -25,7 +20,6 @@ function buildQuery(filter) {
   const qs = params.toString()
   return qs ? `?${qs}` : ''
 }
-
 
 function byNewest(a, b) {
   return new Date(b.createdAt ?? 0) - new Date(a.createdAt ?? 0)
@@ -58,9 +52,7 @@ function ReviewCardPopulater({ limit, filter }) {
 
     loadReviews()
 
-
     const intervalId = setInterval(loadReviews, POLL_INTERVAL)
-
 
     const onFocus = () => loadReviews()
     window.addEventListener('focus', onFocus)
