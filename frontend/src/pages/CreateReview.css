@@ -23,7 +23,7 @@
   flex-direction: column;
   gap: 18px;
   overflow-y: auto;
-  font-family: var(--sans, sans-serif);
+  font-family: inherit;
 }
 
 .cr-title {

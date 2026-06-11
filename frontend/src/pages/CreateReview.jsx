@@ -127,7 +127,7 @@ function CreateReview({ open, onClose, onSave }) {
   return (
     <div className="cr-overlay" onClick={onClose}>
       <div className="cr-box" onClick={(e) => e.stopPropagation()}>
-        <h2 className="cr-title">Edit a Review!</h2>
+        <h2 className="cr-title">Create a Review!</h2>
 
         <div className="cr-top">
           <div className="cr-left">
