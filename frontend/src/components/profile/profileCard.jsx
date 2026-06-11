@@ -15,8 +15,85 @@ function ProfileCard() {
     const [experience, setExperience] = useState(localStorage.getItem('experience') || 0);
     const [rankTotal, setRankTotal] = useState(30);
 
+    async function logOut() {
+        const response = await fetch(
+        'http://localhost:5000/logout',
+        {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        }
+        );
+
+        if (response.ok) {
+            window.location.href = '/';
+        }
+    }
+
+    async function updateName() {
+        const newName = document.getElementById('display-name').value;
+
+        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-name', 
+        {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                display_name: newName
+            })
+        });
+
+        localStorage.setItem('display_name', newName);
+        setName(localStorage.getItem(newName));
+    }
+
+    async function updateEmail() {
+        const newEmail = document.getElementById('email').value;
+
+        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-email', 
+        {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: newEmail 
+            })
+        });
+
+        localStorage.setItem('email', newEmail);
+        setEmail(newEmail);
+    }
+
+    async function updatePassword() {
+        const newPassword = document.getElementById('password').value;
+
+        await fetch('http://localhost:5000/account/' + localStorage.getItem('userId') + '/update-password', 
+        {
+            method: 'PATCH',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                password: newPassword 
+            })
+        });
+
+        localStorage.setItem('password', newPassword);
+    }
+
     function handleSubmit() {
-        console.log("Saving changes.");
+        updateName();
+        updateEmail();
+        updatePassword();
+
+        window.alert('Account Details Updated!');
     }
 
     function rankInfo() {
@@ -45,20 +122,20 @@ function ProfileCard() {
             <form>
                 <div className='label-input'>
                     <label className='profile-label' >New Name: </label>
-                    <input type='text' placeholder={name} className='profile-input'/>
+                    <input id='display-name' type='text' placeholder={name} className='profile-input' defaultValue={name}/>
                 </div>
                 
                 <div className='label-input'>
                     <label className='profile-label'>New Email: </label>
-                    <input type='email' placeholder={email} className='profile-input'/>
+                    <input id='email' type='email' placeholder={email} className='profile-input' defaultValue={email}/>
                 </div>
                 
                 <div className='label-input'>
                     <label className='profile-label'>New Password: </label>
-                    <input type='password' placeholder='●●●●●●●●●●' className='profile-input'/>
+                    <input id='password' type='password' placeholder='●●●●●●●●●●' className='profile-input' />
                 </div>
 
-                <button type='submit' id='profile-submit' onSubmit={handleSubmit()}>Save Changes</button>
+                <button type='button' id='profile-submit' onClick={() => handleSubmit()}>Save Changes</button>
             </form>
 
             <div id='rank-bar'>
@@ -80,7 +157,8 @@ function ProfileCard() {
 
                 <div id='full-rank'>{experience}/{rankTotal}</div>
             </div>
-            <button className='profile-logout'>Logout</button>
+
+            <button className='profile-logout' onClick={() => logOut()}>Logout</button>
         </div>
     )
 };
