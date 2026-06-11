@@ -1,5 +1,5 @@
 import SmallProfile from "../components/home/smallProfile";
-import ReviewBox from '../components/bathoom/ReviewBox'
+import ReviewCardPopulater from '../components/home/ReviewCardPopulater'
 import './Home.css'
 
 function Home() {
@@ -8,7 +8,7 @@ function Home() {
             <SmallProfile/>
             <div id="home-column">
                 <p id="page-title">Home</p>
-                <ReviewBox/>
+                <ReviewCardPopulater/>
             </div>
         </div>
     )

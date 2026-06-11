@@ -4,7 +4,7 @@ const AccountSchema = new mongoose.Schema({
     display_name: String,
 
     password: String,
-    
+
     experience: {
         type: Number,
         default: 0

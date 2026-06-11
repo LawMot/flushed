@@ -33,7 +33,6 @@ function BathroomProfile(
 ) {
     const [genderFilter, setGenderFilter] = useState("all");
 
-    //placeholder reviews
      const reviews = [
         { id: 1, gender: "female", text: "Very clean" },
         { id: 2, gender: "male", text: "Crowded" },
@@ -51,7 +50,7 @@ function BathroomProfile(
         <>
         <div className="bathroom-parent">
             <div className="bathroom-container">
-                <div className="bathroom-col1"> 
+                <div className="bathroom-col1">
                     <h2 className="bathroom-label">
                         <img src={location} alt="location icon" id="bathroom-location-icon"/>
                         The Hub
@@ -76,7 +75,7 @@ function BathroomProfile(
                         </div>
                     </div>
                 </div>
-                <div className="bathroom-col2"> 
+                <div className="bathroom-col2">
                     <div className="bathroom-image"></div>
                     <div>
                         <p id="bathroom-sort">Sort By:</p>
@@ -85,12 +84,12 @@ function BathroomProfile(
                                 genderFilter === "female"
                                     ? "bathroom-icon active"
                                     : "bathroom-icon"
-                            } onClick={() => setGenderFilter("female")}/> 
+                            } onClick={() => setGenderFilter("female")}/>
                             <img src={male} alt="male" className={
                                 genderFilter === "male"
                                     ? "bathroom-icon active"
                                     : "bathroom-icon"
-                            } onClick={() => setGenderFilter("male")}/>  
+                            } onClick={() => setGenderFilter("male")}/>
                             <img src={neutral} alt="genderneutral"
                                 className={
                                 genderFilter === "neutral"
@@ -102,7 +101,7 @@ function BathroomProfile(
                 </div>
             </div>
             <div className="reviews">
-                <ReviewBox 
+                <ReviewBox
                     name={"Jane Doe"}
                     username={"janedoe"}
                     review={"this place rlly rlly sucks, the toilet paper is always out and its so busy go to another restroom pls listen to me"}
@@ -110,11 +109,6 @@ function BathroomProfile(
                     footTraffic = {5}
                     cleanliness = {4}
                     aesthetic = {2}/>
-                {/* {filteredReviews.map((review) => (
-                    <div key={review.id}>
-                        <p>{review.text}</p>
-                    </div>
-                ))} */}
                 </div>
         </div>
         </>

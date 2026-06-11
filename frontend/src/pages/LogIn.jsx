@@ -1,9 +1,9 @@
 import Login from '../components/LogIn'
 
 function LogIn() {
-    return ( 
+    return (
         <div><Login /></div>
-        
+
     )
 };
 

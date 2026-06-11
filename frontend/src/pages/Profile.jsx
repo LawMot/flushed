@@ -1,5 +1,5 @@
  import ProfileCard from "../components/profile/profileCard";
- 
+
  function Profile() {
     return (
         <div >

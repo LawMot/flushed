@@ -1,8 +1,9 @@
 .review-box {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 16px;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
   border: 1px solid var(--border);
   border-radius: 22px;
   background: var(--blue);
@@ -11,54 +12,50 @@
   max-width: 100%;
 }
 
+.review-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .review-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  gap: 2px;
 }
 
-.review-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.review-identity {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  min-width: 0;
-}
-
-.review-name {
-  font-weight: 600;
+.review-floor {
+  font-weight: 800;
   color: #000;
-  font-size: 16px;
+  font-size: 26px;
+  margin: 0;
+  line-height: 1.1;
 }
 
-.review-username {
-  color: #888;
-  font-size: 13px;
+.review-subtitle {
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.review-body {
-  display: flex;
-  gap: 12px;
-  align-items: stretch;
+.review-date {
+  color: #333;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .review-text-box {
-  flex: 1 1 auto;
   min-width: 0;
   background: white;
   border-radius: 22px;
-  padding: 12px 14px;
-  height: 140px;
+  padding: 12px 16px;
+  height: 80px;
   box-sizing: border-box;
   overflow: hidden;
   display: flex;
+  align-items: center;
 }
 
 .review-text {
@@ -68,8 +65,8 @@
   margin: 0;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
-  line-clamp: 6;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -78,8 +75,8 @@
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 4px;
+  justify-content: center;
+  gap: 6px;
 }
 
 .review-rating-row {
@@ -112,11 +109,9 @@
 
 .review-image {
   flex: 0 0 auto;
-  max-width: 140px;
-  max-height: 140px;
-  height: auto;
-  width: auto;
-  object-fit: contain;
-  border-radius: 8px;
+  width: 130px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 14px;
   align-self: center;
 }

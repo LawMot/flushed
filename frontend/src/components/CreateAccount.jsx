@@ -79,7 +79,7 @@ function CreateAccount() {
                     dname: formData.dname,
                     email: formData.email,
                     password: formData.password
-                    
+
                 })
             }
         );
@@ -98,21 +98,21 @@ function CreateAccount() {
         <>
         <div className='login-parent'>
             <h2>For finding the best rated public and private restrooms near you!</h2>
-            <div id="login-container" className='gradient' style={{height: 574, fontSize: 36}}> 
+            <div id="login-container" className='gradient' style={{height: 574, fontSize: 36}}>
                 <div className='login-center'>Create An Account</div>
                 <form id="createAcc"  onSubmit={signup}>
                     <div className='login-input'>
                         <label htmlFor="dname">Display Name:</label>
                         <div className='input-container'>
                             <input type="text" id="dname" name="dname" className='login-info' value={formData.dname} onChange={handleChange}/>
-                            
+
                                 <p className="error-message">
                                     {errors.dname}
                                 </p>
-                            
+
                          </div>
                     </div>
-                    
+
                     <div className='login-input'>
                         <label htmlFor="email">Email: </label>
                         <div className='input-container'>
@@ -131,18 +131,18 @@ function CreateAccount() {
                                 </p>
                         </div>
                     </div>
-                      
+
                     <div className='login-input'>
                         <label htmlFor="confirmPassword"> Confirm Password:</label>
                         <div className='input-container'>
                             <input type="password" id="confirmPassword" name="confirmPassword" className='login-info' value={formData.confirmPassword} onChange={handleChange}/>
-                            
+
                                 <p className="error-message">
                                     {errors.confirmPassword}
                                 </p>
                         </div>
                     </div>
-                    
+
                     <div className='login-center'>
                         <input type="submit" value="Sign Up" className="login"/>
                     </div>

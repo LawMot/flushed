@@ -45,13 +45,13 @@ function NavBar({ logo, onCreateReview }) {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </form> }
-         {!isAuthPage && 
+         {!isAuthPage &&
           <div className="navbar-links">
             <Link className="navbar-link" to="/home">Home</Link>
             <Link className="navbar-link" to="/reviews">Reviews</Link>
             <Link className="navbar-link" to="/profile">Profile</Link>
           </div> }
-         {!isAuthPage && 
+         {!isAuthPage &&
           <button
             type="button"
             className="navbar-create"

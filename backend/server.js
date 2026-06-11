@@ -1,15 +1,17 @@
-require('dotenv').config(); // so we can use .env to store settings
+require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose'); // for mongodb
+const mongoose = require('mongoose');
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const { connectDB } = require('./config/db');
+const reviewRoutes = require('./routes/reviews');
 
 const LocalStrategy = require('passport-local').Strategy;
 const app = express();
 
-app.use(cors({ // browsers block requests from different origins unless the server explicitly allows it
+app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true
 }));
@@ -27,7 +29,7 @@ app.use(passport.initialize());
 
 app.use(passport.session());
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
   console.log('MongoDB Connected');
 });
