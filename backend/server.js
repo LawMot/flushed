@@ -25,6 +25,8 @@ app.use(session({
   })
 );
 
+app.use('/api/reviews', reviewRoutes);
+
 app.use(passport.initialize());
 
 app.use(passport.session());
