@@ -105,8 +105,4 @@ module.exports = {
   getReviewById,
   updateReview,
   deleteReview,
-<<<<<<< HEAD
 };
-=======
-}
->>>>>>> temp-fix

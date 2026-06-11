@@ -45,8 +45,4 @@ reviewSchema.virtual('dateAdded').get(function () {
   })
 })
 
-<<<<<<< HEAD
-export default mongoose.model('Review', reviewSchema)
-=======
 module.exports = mongoose.model('Review', reviewSchema)
->>>>>>> temp-fix
