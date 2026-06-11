@@ -4,6 +4,7 @@ const mongoose = require('mongoose'); // for mongodb
 const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const LocalStrategy = require('passport-local').Strategy;
 const app = express();
@@ -35,6 +36,45 @@ const Account = require('./models/Account');
 const Review = require('./models/Review');
 
 passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: 'http://localhost:5000/auth/google/callback'
+    },
+   async (accessToken, refreshToken, profile, done) => {
+      try {
+        const userEmail = profile.emails[0].value;
+        const googlePhoto = profile.photos && profile.photos[0] ? profile.photos[0].value : '';
+
+        let account = await Account.findOne({ googleId: profile.id });
+
+        if (!account) {
+          account = await Account.findOne({ email: userEmail });
+
+          if (account) {
+            account.googleId = profile.id;
+            if (!account.profile_pic) account.profile_pic = googlePhoto;
+            await account.save();
+          } else {
+            account = await Account.create({
+              googleId: profile.id,
+              display_name: profile.displayName, 
+              email: userEmail,
+              profile_pic: googlePhoto,
+              experience: 0
+            });
+          }
+        }
+        return done(null, account);
+      } catch (err) {
+        return done(err, null);
+      }
+    }
+  )
+);
+
+passport.use(
     new LocalStrategy(
     {
       usernameField: 'email'
@@ -45,7 +85,7 @@ passport.use(
         password: password
       });
 
-      if (!account) {
+      if (!account || !account.password) {
         return done(null, false);
       }
       return done(null, account);
@@ -53,12 +93,12 @@ passport.use(
   )
 );
 
-passport.serializeUser(function(account, done) {
+passport.serializeUser((account, done) => {
   done(null, account.id);
 });
 
 passport.deserializeUser(
-  async function(id, done) {
+  async (id, done) => {
     const account = await Account.findById(id);
     done(null, account);
   }
@@ -69,10 +109,28 @@ function checkAuth(req, res, next) {
     next();
   } else {
     res.json({
-      success: false
+      success: false,
+      message: "Unauthorized access"
     });
   }
 }
+
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: 'http://localhost:5173/login' }),
+  (req, res) => {
+    res.redirect('http://localhost:5173/home'); 
+  }
+);
+
+app.get('/auth/me', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ success: true, user: req.user });
+  } else {
+    res.status(401).json({ success: false, message: "Not authenticated" });
+  }
+});
 
 app.post('/signup', async (req, res) => {
   const account = await Account.create({
@@ -124,11 +182,18 @@ app.post('/login', (req, res, next) => {
 
 });
 
-app.post('/logout', function(req, res, next){
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect('/');
-  });
+app.delete('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.status(400).send('Log out failed.');
+      } else {
+        res.status(204).end();
+      }
+    });
+  } else {
+    res.end();
+  }
 });
 
 app.get('/check-auth', (req, res) => {

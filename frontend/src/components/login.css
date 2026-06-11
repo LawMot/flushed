@@ -12,7 +12,7 @@
   display: flex;
   justify-content: center; 
   align-items: center; 
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 48px;
 }
 
@@ -78,7 +78,6 @@
 
 .login-small-text {
   font-size: medium;
-  margin-top: 10px;
 }
 
 #createAcc {
@@ -96,4 +95,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.login-or { 
+  font-size: 18px; 
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.login-google { 
+  background-color: #ffffff;
+  color: rgb(55, 54, 54);
+  border: none;
+  cursor: pointer; 
+  font-family: inherit;
 }

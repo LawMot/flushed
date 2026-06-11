@@ -81,7 +81,9 @@ function LogIn() {
     }
 }
 
-    
+ const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5000/auth/google';
+};   
     
     return (
         <>
@@ -117,6 +119,18 @@ function LogIn() {
                     </p>
                     <input type="submit" value="Log In" className='login'/>
                     </form>
+                    <div className='login-center login-or'>
+                        — OR —
+                    </div>
+                    <div className='login-center'>
+                        <button 
+                            type="button" 
+                            onClick={handleGoogleLogin} 
+                            className="login-google" 
+                        >
+                            Log In with Google
+                        </button>
+                    </div>
                     <p className='login-small-text'>Don't have an account?</p>
                     <a className='login-switch' href='/signUp'>Create Account</a>
                 </div>
