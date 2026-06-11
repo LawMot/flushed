@@ -83,7 +83,7 @@ export default function AdminPage() {
       }
     }
   };
-  
+
    async function logOut() {
         const response = await fetch(
         'http://localhost:5000/logout',
@@ -114,7 +114,7 @@ export default function AdminPage() {
         />
       </header>
 
-      <div className="account-grid">
+      <div className="admin-grid">
         {Array.isArray(accounts) && accounts.length > 0 ? (
           accounts
             .filter(acc => 
@@ -125,54 +125,54 @@ export default function AdminPage() {
               const isEditing = editingUserId === account._id;
 
               return (
-                <div className="gradient" id="profile-card" key={account._id}>
-                  <form onSubmit={(e) => e.preventDefault()}>
-                    <div className="label-input">
-                      <label className="profile-label">Name: </label>
+                <div className="gradient" id="admin-card" key={account._id}>
+                  <form className="admin-form" onSubmit={(e) => e.preventDefault()}>
+                    <div className="admin-label-input">
+                      <label className="admin-label">Name: </label>
                       <input 
                         type="text" 
-                        className="profile-input" 
+                        className="admin-input" 
                         disabled={!isEditing}
                         value={isEditing ? name : (account.display_name || 'No Name Set')}
                         onChange={(e) => setName(e.target.value)}
                       />
                     </div>
                     
-                    <div className="label-input">
-                      <label className="profile-label">Email: </label>
+                    <div className="admin-label-input">
+                      <label className="admin-label">Email: </label>
                       <input 
                         type="email" 
-                        className="profile-input" 
+                        className="admin-input" 
                         disabled={!isEditing}
                         value={isEditing ? email : account.email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
 
-                    <div className="label-input">
-                      <label className="profile-label">Role: </label>
+                    <div className="admin-label-input">
+                      <label className="admin-label">Role: </label>
                       <input 
                         type="text" 
-                        className="profile-input" 
+                        className="admin-input" 
                         disabled 
                         value={account.role || 'user'} 
                       />
                     </div>
 
                     {isEditing ? (
-                      <div className="action-buttons">
-                        <button type="button" id="profile-submit" onClick={() => handleSubmit(account._id)}>
+                      <div className="admin-buttons">
+                        <button type="button" id="admin-submit" onClick={() => handleSubmit(account._id)}>
                           Save Changes
                         </button>
-                        <button type="button" className="profile-logout" onClick={() => setEditingUserId(null)}>
+                        <button type="button" className="admin-logout" onClick={() => setEditingUserId(null)}>
                           Cancel
                         </button>
                       </div>
                     ) : (
-                      <div className="action-buttons">
+                      <div className="admin-buttons">
                         <button 
                           type="button" 
-                          id="profile-submit" 
+                          id="admin-submit" 
                           onClick={() => {
                             setEditingUserId(account._id);
                             setName(account.display_name || '');
@@ -182,11 +182,11 @@ export default function AdminPage() {
                           Edit Details
                         </button>
                         {account.role !== 'admin' ? (
-                            <button type="button" className="profile-logout delete-btn" onClick={() => handleDelete(account._id)}>
+                            <button type="button" className="admin-logout admin-delete-btn" onClick={() => handleDelete(account._id)}>
                                 Delete Account
                             </button>
                             ) : (
-                            <button type="button" className="profile-logout" disabled style={{ opacity: 0.5, cursor: 'not-allowed' }}>
+                            <button type="button" className="admin-logout" disabled style={{ opacity: 0.5, cursor: 'not-allowed' }}>
                                 Protected
                             </button>
                         )}
@@ -197,10 +197,10 @@ export default function AdminPage() {
               );
             })
         ) : (
-          <p className="empty-message">No matching accounts found.</p>
+          <p className="admin-empty-message">No matching accounts found.</p>
         )}
       </div>
-       <button className='profile-logout' onClick={() => logOut()}>Logout</button>
+       <button className='admin-logout' onClick={() => logOut()}>Logout</button>
     </div>
   );
 }
