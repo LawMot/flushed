@@ -28,9 +28,7 @@ app.use(passport.initialize());
 
 app.use(passport.session());
 
-app.use('/api/reviews', reviewRoutes);
-
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
   console.log('MongoDB Connected');
 });
@@ -135,11 +133,18 @@ app.post('/login', (req, res, next) => {
 
 });
 
-app.post('/logout', function(req, res, next){
-  req.logout(function(err) {
-    if (err) { return next(err); }
-    res.redirect('/');
-  });
+app.delete('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.status(400).send('Log out failed.');
+      } else {
+        res.status(204).end();
+      }
+    });
+  } else {
+    res.end();
+  }
 });
 
 app.get('/check-auth', (req, res) => {
@@ -155,6 +160,42 @@ app.get('/reviews/:userId', checkAuth, async(req, res) => {
     userId: req.params.userId
   });
   res.json(reviews);
+});
+
+app.patch('/account/:userId/update-name', checkAuth, async(req, res) => {
+  const account = await Account.findById(req.params.userId);
+
+  if (!account) {
+    return res.status(404).json({ error: 'Account not found' });
+  }
+
+  account.display_name = req.body.display_name;
+  await account.save();
+  res.json(account);
+});
+
+app.patch('/account/:userId/update-email', checkAuth, async(req, res) => {
+  const account = await Account.findById(req.params.userId);
+
+  if (!account) {
+    return res.status(404).json({ error: 'Account not found' });
+  }
+
+  account.email= req.body.email;
+  await account.save();
+  res.json(account);
+});
+
+app.patch('/account/:userId/update-password', checkAuth, async(req, res) => {
+  const account = await Account.findById(req.params.userId);
+
+  if (!account) {
+    return res.status(404).json({ error: 'Account not found' });
+  }
+
+  account.password = req.body.password;
+  await account.save();
+  res.json(account);
 })
 
 const PORT = process.env.PORT || 5000;

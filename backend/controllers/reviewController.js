@@ -1,4 +1,4 @@
-const Review = require('../models/Review');
+const Review = require('../models/Review')
 
 function parseRatings(body) {
   if (body.ratings) {
@@ -12,7 +12,7 @@ function parseRatings(body) {
   }
 }
 
-export async function createReview(req, res) {
+async function createReview(req, res) {
   try {
     const { building, floor, restroom, gender, description } = req.body
 
@@ -39,7 +39,7 @@ export async function createReview(req, res) {
   }
 }
 
-export async function getReviews(req, res) {
+async function getReviews(req, res) {
   try {
     const { building, floor, restroom, gender } = req.query
     const filter = {}
@@ -55,7 +55,7 @@ export async function getReviews(req, res) {
   }
 }
 
-export async function getReviewById(req, res) {
+async function getReviewById(req, res) {
   try {
     const review = await Review.findById(req.params.id)
     if (!review) return res.status(404).json({ error: 'Review not found' })
@@ -65,7 +65,7 @@ export async function getReviewById(req, res) {
   }
 }
 
-export async function updateReview(req, res) {
+async function updateReview(req, res) {
   try {
     const update = { ...req.body }
     if (req.body.ratings || req.body.supplies !== undefined) {
@@ -89,7 +89,7 @@ export async function updateReview(req, res) {
   }
 }
 
-export async function deleteReview(req, res) {
+async function deleteReview(req, res) {
   try {
     const review = await Review.findByIdAndDelete(req.params.id)
     if (!review) return res.status(404).json({ error: 'Review not found' })
@@ -105,4 +105,8 @@ module.exports = {
   getReviewById,
   updateReview,
   deleteReview,
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> temp-fix
