@@ -47,6 +47,7 @@
 - Design
 - Create Review
 - Review Card
+- Home Page Reviews
 
 ## Deployment
 
