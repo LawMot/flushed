@@ -106,3 +106,21 @@ form {
     border-top-left-radius: inherit;
     border-bottom-left-radius: inherit;
 }
+
+.profile-logout {
+     border-width: 0px;
+    background-color: var(--lighter-blue);
+    color: black;
+    width: min-content;
+    place-self: center;
+    border-radius: 20px;
+    font-size: 20px;
+    margin-top: 15px;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-top: 8px;
+    padding-bottom:8px;
+    cursor: pointer;
+    font-family: inherit;
+    min-width: fit-content;
+}

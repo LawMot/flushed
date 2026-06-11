@@ -1,26 +1,196 @@
-import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
-import { connectDB } from './config/db.js'
-import reviewRoutes from './routes/reviews.js'
+require('dotenv').config(); // so we can use .env to store settings
+const express = require('express');
+const mongoose = require('mongoose'); // for mongodb
+const cors = require('cors');
+const session = require('express-session');
+const passport = require('passport');
 
-const app = express()
+const LocalStrategy = require('passport-local').Strategy;
+const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_ORIGIN || '*' }))
+app.use(cors({ // browsers block requests from different origins unless the server explicitly allows it
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
-app.use(express.json({ limit: '10mb' }))
-app.use(express.urlencoded({ extended: true, limit: '10mb' }))
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.json({ status: 'ok', message: 'Flushed backend is running' })
-})
-
-app.use('/api/reviews', reviewRoutes)
-
-const PORT = process.env.PORT || 5000
-
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`🚀 Server listening on http://localhost:${PORT}`)
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
   })
+);
+
+app.use(passport.initialize());
+
+app.use(passport.session());
+
+mongoose.connect(process.env.MONGO_URI)
+.then(() => {
+  console.log('MongoDB Connected');
+});
+
+const Account = require('./models/Account');
+const Review = require('./models/Review');
+
+passport.use(
+    new LocalStrategy(
+    {
+      usernameField: 'email'
+    },
+    async function(email, password, done) {
+      const account = await Account.findOne({
+        email: email,
+        password: password
+      });
+
+      if (!account) {
+        return done(null, false);
+      }
+      return done(null, account);
+    }
+  )
+);
+
+passport.serializeUser(function(account, done) {
+  done(null, account.id);
+});
+
+passport.deserializeUser(
+  async function(id, done) {
+    const account = await Account.findById(id);
+    done(null, account);
+  }
+);
+
+function checkAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.json({
+      success: false
+    });
+  }
+}
+
+app.post('/signup', async (req, res) => {
+  const account = await Account.create({
+    display_name: req.body.dname,
+    email: req.body.email,
+    password: req.body.password,
+    experience: 0
+  });
+  res.json(account);
+});
+
+app.post('/login', (req, res, next) => {
+
+  passport.authenticate(
+    'local',
+    (err, account) => {
+
+      if (err) {
+        return next(err);
+      }
+
+      if (!account) {
+        return res.status(401).json({
+          success: false,
+          message: 'Invalid email or password'
+        });
+      }
+
+      req.login(account, (err) => {
+
+        if (err) {
+          return next(err);
+        }
+
+        return res.json({
+          success: true,
+          display_name: account.display_name,
+          email: account.email,
+          experience: account.experience,
+          password: account.password,
+          userId: account._id,
+          pfp: account.profile_pic
+        });
+
+      });
+
+    }
+  )(req, res, next);
+
+});
+
+app.delete('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.status(400).send('Log out failed.');
+      } else {
+        res.status(204).end();
+      }
+    });
+  } else {
+    res.end();
+  }
+});
+
+app.get('/check-auth', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json({ authenticated: true, user: req.user });
+  } else {
+    res.json({ authenticated: false });
+  }
+});
+
+app.get('/reviews/:userId', checkAuth, async(req, res) => {
+  const reviews = await Review.find({
+    userId: req.params.userId
+  });
+  res.json(reviews);
+});
+
+app.patch('/account/:userId/update-name', checkAuth, async(req, res) => {
+  const account = await Account.findById(req.params.userId);
+
+  if (!account) {
+    return res.status(404).json({ error: 'Account not found' });
+  }
+
+  account.display_name = req.body.display_name;
+  await account.save();
+  res.json(account);
+});
+
+app.patch('/account/:userId/update-email', checkAuth, async(req, res) => {
+  const account = await Account.findById(req.params.userId);
+
+  if (!account) {
+    return res.status(404).json({ error: 'Account not found' });
+  }
+
+  account.email= req.body.email;
+  await account.save();
+  res.json(account);
+});
+
+app.patch('/account/:userId/update-password', checkAuth, async(req, res) => {
+  const account = await Account.findById(req.params.userId);
+
+  if (!account) {
+    return res.status(404).json({ error: 'Account not found' });
+  }
+
+  account.password = req.body.password;
+  await account.save();
+  res.json(account);
 })
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

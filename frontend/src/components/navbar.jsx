@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './navbar.css'
 import logoToilet from '../assets/logoToilet.svg';
 import CreateReview from '../pages/CreateReview';
@@ -10,6 +10,8 @@ function NavBar({ logo, onCreateReview }) {
   const [, setRecentSearches] = useState('')
   const [showCreate, setShowCreate] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
+  const isAuthPage = location.pathname === '/' || location.pathname === '/signUp'
 
   const handleCreateReview = () => {
     setShowCreate(true)
@@ -32,28 +34,32 @@ function NavBar({ logo, onCreateReview }) {
           <img className="navbar-logo" src={logoToilet} alt="flushed toilet logo" />
           <span className="navbar-title">ushed</span>
         </Link>
-        <form className="navbar-search" onSubmit={handleSearchSubmit}>
-          <img src={magnifying} alt='search bar magnifying glass'/>
-          <input
-            type="text"
-            className="navbar-search-input"
-            placeholder="Search Restrooms..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </form>
-        <div className="navbar-links">
-          <Link className="navbar-link" to="/home">Home</Link>
-          <Link className="navbar-link" to="/reviews">Reviews</Link>
-          <Link className="navbar-link" to="/profile">Profile</Link>
-        </div>
-        <button
-          type="button"
-          className="navbar-create"
-          onClick={handleCreateReview}
-        >
-          Create Review
-        </button>
+        {!isAuthPage &&
+          <form className="navbar-search" onSubmit={handleSearchSubmit}>
+            <img src={magnifying} alt='search bar magnifying glass'/>
+            <input
+              type="text"
+              className="navbar-search-input"
+              placeholder="Search Restrooms..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </form> }
+         {!isAuthPage && 
+          <div className="navbar-links">
+            <Link className="navbar-link" to="/home">Home</Link>
+            <Link className="navbar-link" to="/reviews">Reviews</Link>
+            <Link className="navbar-link" to="/profile">Profile</Link>
+          </div> }
+         {!isAuthPage && 
+          <button
+            type="button"
+            className="navbar-create"
+            onClick={handleCreateReview}
+          >
+            Create Review
+          </button>
+        }
       </div>
 
       <CreateReview

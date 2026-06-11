@@ -29,7 +29,7 @@
 
 .login-input {
   display: flex;
-  padding-bottom: 15px;
+  padding-bottom: 10px;
   justify-content: space-between;
   align-items: center;
   width: 100%;
@@ -58,7 +58,6 @@
   font-size: large;
   cursor: pointer;
   width: 120px;
-  margin-top: 10px;
   border-width: 0;
   font-family: inherit;
   padding: 6px;
@@ -84,4 +83,17 @@
 
 #createAcc {
   width: 80%;
+}
+
+.error-message {
+  color: #cd0d10;
+  font-size: 10px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
