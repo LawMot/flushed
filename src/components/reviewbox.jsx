@@ -1,4 +1,5 @@
 import './ReviewBox.css'
+import defaultRestroom from '../assets/bathroomPhotos/1stFloorMenR115.jpg'
 
 function Stars({ value = 0, max = 5 }) {
   return (
@@ -16,59 +17,50 @@ function Stars({ value = 0, max = 5 }) {
 }
 
 function ReviewBox({
-  avatar,
-  name,
-  username,
+  floor,
   review,
   supplies = 0,
   footTraffic = 0,
   cleanliness = 0,
-  aesthetic = 0,
-  image,
-  imageAlt = '',
+  aesthetics = 0,
+  image = defaultRestroom,
+  imageAlt = 'Restroom photo',
 }) {
   return (
     <div className="review-box">
-      <div className="review-header">
-        {avatar && (
-          <img className="review-avatar" src={avatar} alt={name || 'user'} />
-        )}
-        <div className="review-identity">
-          <span className="review-name">{name}</span>
-          {username && (
-            <span className="review-username">@{username}</span>
-          )}
+      <div className="review-main">
+        <div className="review-header">
+          <h2 className="review-floor">{floor}</h2>
+          <span className="review-subtitle">Most Recent Review:</span>
         </div>
-      </div>
 
-      <div className="review-body">
         <div className="review-text-box">
           <p className="review-text">{review}</p>
         </div>
-
-        <div className="review-ratings">
-          <div className="review-rating-row">
-            <span className="review-rating-label">Supplies</span>
-            <Stars value={supplies} />
-          </div>
-          <div className="review-rating-row">
-            <span className="review-rating-label">Foot Traffic</span>
-            <Stars value={footTraffic} />
-          </div>
-          <div className="review-rating-row">
-            <span className="review-rating-label">Cleanliness</span>
-            <Stars value={cleanliness} />
-          </div>
-          <div className="review-rating-row">
-            <span className="review-rating-label">Aesthetic</span>
-            <Stars value={aesthetic} />
-          </div>
-        </div>
-
-        {image && (
-          <img className="review-image" src={image} alt={imageAlt} />
-        )}
       </div>
+
+      <div className="review-ratings">
+        <div className="review-rating-row">
+          <span className="review-rating-label">Supplies</span>
+          <Stars value={supplies} />
+        </div>
+        <div className="review-rating-row">
+          <span className="review-rating-label">Foot Traffic</span>
+          <Stars value={footTraffic} />
+        </div>
+        <div className="review-rating-row">
+          <span className="review-rating-label">Cleanliness</span>
+          <Stars value={cleanliness} />
+        </div>
+        <div className="review-rating-row">
+          <span className="review-rating-label">Aesthetics</span>
+          <Stars value={aesthetics} />
+        </div>
+      </div>
+
+      {image && (
+        <img className="review-image" src={image} alt={imageAlt} />
+      )}
     </div>
   )
 }
