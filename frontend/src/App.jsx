@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import CreateReview from './pages/CreateReview';
 import EditReview from './pages/EditReview';
 import Bathroom from './pages/Bathroom';
+import Admin from './pages/Admin';
 import ProtectedRoute from './ProtectedRoute';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/createReview' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>
         <Route path='/editReview' element={<ProtectedRoute><EditReview/></ProtectedRoute>}/>
         <Route path='/bathroom' element={<ProtectedRoute><Bathroom/></ProtectedRoute>}/>
+        <Route path='/admin' element={<ProtectedRoute><Admin/></ProtectedRoute>}/>
       </Routes>
   )
 }
