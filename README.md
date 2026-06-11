@@ -31,11 +31,22 @@
 
 ## Team Contributions
 ### Motunrayo
--
+- Design
+- Log In
+- Create Account
+- Google Authentification
+- Admin Account
+- Bathroom Profile
 ### Briana
--
+- Design
+- Figma Wireframes
+- Small and Large Profile Card
+- Update Account Information
+- Profile Pictures
 ### Oscar
--
+- Design
+- Create Review
+- Review Card
 
 ## Deployment
 
@@ -43,6 +54,7 @@
 
 ```bash
 cd backend
+npm i
 npm run start
 ```
 
@@ -52,6 +64,7 @@ Open a second terminal and run:
 
 ```bash
 cd frontend
+npm i
 npm run dev
 ```
 
