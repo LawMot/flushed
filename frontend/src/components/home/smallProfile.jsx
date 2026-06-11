@@ -20,8 +20,27 @@ function SmallProfile() {
         }
     }
 
-    useEffect(() => {
-        getReviews();
+   useEffect(() => {
+        fetch('http://localhost:5000/auth/me', { credentials: 'include' })
+            .then(res => {
+                if (res.ok) return res.json();
+                throw new Error("Not authenticated");
+            })
+            .then(data => {
+                if (data.success && data.user) {
+                    setName(data.user.display_name || 'Display Name');
+                    setXp(data.user.experience || 0);
+                    
+                    if (data.user.profile_pic) {
+                        setPfp(data.user.profile_pic);
+                    }
+
+                    getReviews(data.user._id);
+                }
+            })
+            .catch(err => {
+                console.error("Session verification failed in SmallProfile:", err);
+            });
     }, []);
 
     return (

@@ -12,7 +12,13 @@ const AccountSchema = new mongoose.Schema({
 
     email: String,
 
-    profile_pic: String
+    profile_pic: String,
+
+    googleId: { 
+        type: String, 
+        unique: true, 
+        sparse: true
+    }
 });
 
 module.exports = mongoose.model("Account", AccountSchema);

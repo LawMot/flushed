@@ -67,9 +67,6 @@ function CreateAccount() {
 
         console.log('Form submitted:', formData);
 
-        const dname = document.getElementById('dname').value;
-        const password = document.getElementById('password').value;
-
         const response = await fetch(
             'http://localhost:5000/signup',
             {
@@ -92,6 +89,9 @@ function CreateAccount() {
         } else {
             console.error('Signup failed');
         }
+    };
+    const handleGoogleSignUp = () => {
+        window.location.href = 'http://localhost:5000/auth/google';
     };
 
      return (
@@ -147,6 +147,19 @@ function CreateAccount() {
                         <input type="submit" value="Sign Up" className="login"/>
                     </div>
                 </form>
+                <div className='login-center login-or'>
+                    — OR —
+                </div>
+
+                <div className='login-center'>
+                    <button 
+                        type="button" 
+                        onClick={handleGoogleSignUp} 
+                        className="login-google"
+                    >
+                        Sign Up with Google
+                    </button>
+                </div>
                     <p className='login-small-text'>Already have an account?</p>
                     <a className='login-switch' href='/'>Log In</a>
             </div>
