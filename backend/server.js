@@ -172,7 +172,8 @@ app.post('/login', (req, res, next) => {
           experience: account.experience,
           password: account.password,
           userId: account._id,
-          pfp: account.profile_pic
+          pfp: account.profile_pic,
+          role: account.role || 'user'
         });
 
       });
@@ -198,9 +199,12 @@ app.delete('/logout', (req, res) => {
 
 app.get('/check-auth', (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({ authenticated: true, user: req.user });
+    return res.json({ 
+            authenticated: true, 
+            role: req.user.role || 'user' 
+        });
   } else {
-    res.json({ authenticated: false });
+   res.json({ authenticated: false, role: null });
   }
 });
 
@@ -246,6 +250,54 @@ app.patch('/account/:userId/update-password', checkAuth, async(req, res) => {
   await account.save();
   res.json(account);
 })
+
+// const isAuthenticated = (req, res, next) => {
+//     if (req.isAuthenticated()) {
+//         return next(); 
+//     }
+//     res.status(401).json({ success: false, message: "Unauthorized: Please log in first" });
+// };
+
+const isAdmin = (req, res, next) => {
+    if (req.user && req.user.role === 'admin') {
+        next();
+    } else {
+        res.status(403).json({ success: false, message: "Access Denied: Admins Only" });
+    }
+};
+
+app.get('/admin/accounts', checkAuth, isAdmin, async (req, res) => {
+  try {
+    const accounts = await Account.find({}).select('-password');
+    res.status(200).json(accounts);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error fetching accounts', error: error.message });
+  }
+});
+app.delete('/admin/accounts/:userId', checkAuth, isAdmin, async (req, res) => {
+  try {
+    
+    const userId = req.params.userId;
+
+    const deletedAccount = await Account.findById(userId);
+
+    if (!deletedAccount) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    if (deletedAccount.role === 'admin') {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Security Restriction: Administrative accounts cannot be deleted.' 
+      });
+    }
+
+    await Account.findByIdAndDelete(userId);
+
+    res.status(200).json({ message: 'Account deleted successfully from database' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error deleting account', error: error.message });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 

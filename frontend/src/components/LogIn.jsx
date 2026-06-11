@@ -100,7 +100,12 @@ function LogIn() {
         localStorage.setItem('experience', data.experience);
         localStorage.setItem('password', data.password);
         localStorage.setItem('userId', data.userId);
-        navigate('/home');
+        localStorage.setItem('role', data.role);
+        if (data.role === 'admin') {
+            navigate('/admin');
+        } else {
+            navigate('/home');
+        }
     } else {
         setStatusMessage(data.message || 'Login Failed');
     }
