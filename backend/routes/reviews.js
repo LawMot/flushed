@@ -1,12 +1,14 @@
-import { Router } from 'express'
-import multer from 'multer'
-import {
+const { Router } = require('express');
+const multer = require('multer');
+
+const {
   createReview,
   getReviews,
   getReviewById,
   updateReview,
   deleteReview,
-} from '../controllers/reviewController.js'
+} = require('../controllers/reviewController');
+
 
 
 const upload = multer({
@@ -26,4 +28,4 @@ router.post('/', upload.single('image'), createReview)
 router.put('/:id', upload.single('image'), updateReview)
 router.delete('/:id', deleteReview)
 
-export default router
+module.exports = router;

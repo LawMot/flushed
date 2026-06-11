@@ -1,4 +1,4 @@
-import Review from '../models/Review.js'
+const Review = require('../models/Review');
 
 function parseRatings(body) {
   if (body.ratings) {
@@ -98,3 +98,11 @@ export async function deleteReview(req, res) {
     res.status(400).json({ error: err.message })
   }
 }
+
+module.exports = {
+  createReview,
+  getReviews,
+  getReviewById,
+  updateReview,
+  deleteReview,
+};
