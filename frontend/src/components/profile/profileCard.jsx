@@ -186,13 +186,15 @@ function ProfileCard() {
     }
     return (
         <div className='gradient' id='profile-card'>
-            <button id='profile-button'>
-                <img
-                    src={pfp || defaultPfp}
-                    alt='Profile'
-                    id='profile-pic'
-                />
-            </button>
+            <div>
+                <input id='profile-pic-upload' type='file' hidden accept='image/png,image/jpeg'/>
+                <label htmlFor='profile-pic-upload' id='profile-pic-input'>
+                    <img
+                        src={pfp || defaultPfp}
+                        alt='Profile'
+                    />
+                </label>
+            </div>
             
 
             <form onSubmit={handleSubmit}>

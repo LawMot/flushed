@@ -125,14 +125,14 @@ form {
     min-width: fit-content;
 }
 
-#profile-button {
+#profile-pic-input {
     border: none;
     padding: 0px;
     background-color: transparent;
     border-radius: 100%;
 }
 
-#profile-button:hover {
+#profile-pic-input:hover {
     filter: brightness(110%);
     cursor: pointer;
 }
