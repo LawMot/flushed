@@ -1,5 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './CreateReview.css'
+import { getRestroomPhoto } from '../data/bathrooms'
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
 import grayFemale from '../assets/genderIcons/largeGrayFemale.svg'
 import grayMale from '../assets/genderIcons/largeGrayMale.svg'
 import grayNeutral from '../assets/genderIcons/largeGrayNeutral.svg'
@@ -17,9 +20,15 @@ const CATEGORIES = [
   { key: 'aesthetic', label: 'Aesthetics' },
 ]
 
-const BUILDINGS = ['Winston Chung Hall', 'Bourns Hall', 'Materials Science', 'Rivera Library', 'HUB']
-const FLOORS = ['Floor 1', 'Floor 2', 'Floor 3', 'Floor 4', 'Floor 5']
-const RESTROOMS = ['Restroom A', 'Restroom B', 'Restroom C']
+const BUILDINGS = ['Winston Chung Hall']
+const FLOORS = ['Floor 1', 'Floor 2', 'Floor 3', 'Floor 4']
+
+const RESTROOMS_BY_FLOOR = {
+  'Floor 1': ['Past the Transfer Center', 'Near the Lab'],
+  'Floor 2': ['Outside', 'Main'],
+  'Floor 3': ['Professor', 'Outside'],
+  'Floor 4': ['Professor', 'Outside'],
+}
 
 function StarRating({ value, onChange }) {
   return (
@@ -54,8 +63,6 @@ function CreateReview({ open, onClose, onSave }) {
   const [floor, setFloor] = useState('')
   const [restroom, setRestroom] = useState('')
   const [gender, setGender] = useState('')
-  const [image, setImage] = useState(null) 
-  const [dragOver, setDragOver] = useState(false)
   const [ratings, setRatings] = useState({
     supplies: 0,
     footTraffic: 0,
@@ -64,9 +71,9 @@ function CreateReview({ open, onClose, onSave }) {
   })
   const [description, setDescription] = useState('')
   const [descFocused, setDescFocused] = useState(false)
-  const fileInputRef = useRef(null)
+  const [saving, setSaving] = useState(false)
 
-  
+
   useEffect(() => {
     if (!open) return
     const onKey = (e) => e.key === 'Escape' && onClose?.()
@@ -74,46 +81,46 @@ function CreateReview({ open, onClose, onSave }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [open, onClose])
 
-  
-  useEffect(() => {
-    return () => {
-      if (image?.url) URL.revokeObjectURL(image.url)
-    }
-  }, [image])
-
   if (!open) return null
 
   const setRating = (key, val) =>
     setRatings((prev) => ({ ...prev, [key]: val }))
 
-  const acceptFile = (file) => {
-    if (!file) return
-    if (!['image/png', 'image/jpeg'].includes(file.type)) {
-      alert('Please use a .png or .jpeg image.')
+  const previewPhoto = getRestroomPhoto(floor, restroom, gender)
+
+  const handleSave = async () => {
+    if (!building || !floor) {
+      alert('Please select a building and floor.')
       return
     }
-    setImage({ file, url: URL.createObjectURL(file) })
-  }
 
-  const handleDrop = (e) => {
-    e.preventDefault()
-    setDragOver(false)
-    acceptFile(e.dataTransfer.files?.[0])
-  }
+    const form = new FormData()
+    form.append('building', building)
+    form.append('floor', floor)
+    form.append('restroom', restroom)
+    form.append('gender', gender)
+    form.append('description', description)
+    form.append('ratings', JSON.stringify(ratings))
 
-  const handleSave = () => {
-    const data = {
-      building,
-      floor,
-      restroom,
-      gender,
-      image: image?.file ?? null,
-      ratings,
-      description,
+    try {
+      setSaving(true)
+      const res = await fetch(`${API_URL}/reviews`, {
+        method: 'POST',
+        body: form,
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error(err.error || `Request failed (${res.status})`)
+      }
+      const saved = await res.json()
+      onSave?.(saved)
+      onClose?.()
+    } catch (err) {
+      console.error('Failed to save review:', err)
+      alert(`Could not save review: ${err.message}`)
+    } finally {
+      setSaving(false)
     }
-    onSave?.(data)
-    console.log('CreateReview saved:', data)
-    onClose?.()
   }
 
   const showPlaceholder = !descFocused && description === ''
@@ -140,7 +147,10 @@ function CreateReview({ open, onClose, onSave }) {
               <select
                 className="cr-select"
                 value={floor}
-                onChange={(e) => setFloor(e.target.value)}
+                onChange={(e) => {
+                  setFloor(e.target.value)
+                  setRestroom('')
+                }}
               >
                 <option value="">Select floor</option>
                 {FLOORS.map((f) => (
@@ -152,9 +162,10 @@ function CreateReview({ open, onClose, onSave }) {
                 className="cr-select"
                 value={restroom}
                 onChange={(e) => setRestroom(e.target.value)}
+                disabled={!floor}
               >
                 <option value="">Select restroom</option>
-                {RESTROOMS.map((r) => (
+                {(RESTROOMS_BY_FLOOR[floor] || []).map((r) => (
                   <option key={r} value={r}>{r}</option>
                 ))}
               </select>
@@ -189,30 +200,16 @@ function CreateReview({ open, onClose, onSave }) {
               ))}
             </div>
 
-            <div
-              className={`cr-dropzone${dragOver ? ' drag-over' : ''}`}
-              onDragOver={(e) => {
-                e.preventDefault()
-                setDragOver(true)
-              }}
-              onDragLeave={() => setDragOver(false)}
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
-            >
-              {image ? (
-                <img className="cr-dropzone-preview" src={image.url} alt="preview" />
+            <div className="cr-dropzone">
+              {previewPhoto ? (
+                <img
+                  className="cr-dropzone-preview"
+                  src={previewPhoto}
+                  alt={`${floor} ${restroom} restroom`}
+                />
               ) : (
-                <span className="cr-dropzone-text">
-                  Drag &amp; drop a .png or .jpeg here
-                </span>
+                <span className="cr-dropzone-text">waiting for your input...</span>
               )}
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/png,image/jpeg"
-                hidden
-                onChange={(e) => acceptFile(e.target.files?.[0])}
-              />
             </div>
           </div>
         </div>
@@ -230,8 +227,8 @@ function CreateReview({ open, onClose, onSave }) {
           />
         </div>
 
-        <button type="button" className="cr-save" onClick={handleSave}>
-          Save Changes
+        <button type="button" className="cr-save" onClick={handleSave} disabled={saving}>
+          {saving ? 'Saving…' : 'Save Changes'}
         </button>
       </div>
     </div>

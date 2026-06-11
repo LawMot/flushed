@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import ReviewBox from '../bathoom/ReviewBox'
+import { getRestroomPhoto } from '../../data/bathrooms'
 
-// Base URL of the Express backend. Override with VITE_API_URL in a .env file
-// if the backend runs somewhere other than localhost:5000.
+
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
 
 
@@ -12,40 +12,56 @@ function imageSrc(image) {
 }
 
 
-// How often (ms) to poll the backend for newly added reviews.
+
 const POLL_INTERVAL = 10000
 
-function ReviewCardPopulater({ limit }) {
+
+function buildQuery(filter) {
+  if (!filter) return ''
+  const params = new URLSearchParams()
+  for (const [key, value] of Object.entries(filter)) {
+    if (value != null && value !== '') params.append(key, value)
+  }
+  const qs = params.toString()
+  return qs ? `?${qs}` : ''
+}
+
+
+function byNewest(a, b) {
+  return new Date(b.createdAt ?? 0) - new Date(a.createdAt ?? 0)
+}
+
+function ReviewCardPopulater({ limit, filter }) {
   const [reviews, setReviews] = useState([])
-  const [status, setStatus] = useState('loading') // 'loading' | 'ready' | 'error'
+  const [status, setStatus] = useState('loading')
+
+  const filterKey = JSON.stringify(filter ?? {})
 
   useEffect(() => {
     let active = true
 
     async function loadReviews() {
       try {
-        const res = await fetch(`${API_URL}/reviews`)
+        const res = await fetch(`${API_URL}/reviews${buildQuery(filter)}`)
         if (!res.ok) throw new Error(`Request failed: ${res.status}`)
         const data = await res.json()
         if (!active) return
-        setReviews(Array.isArray(data) ? data : [])
+        const list = Array.isArray(data) ? [...data].sort(byNewest) : []
+        setReviews(list)
         setStatus('ready')
       } catch (err) {
         console.error('Failed to load reviews:', err)
-        // Keep showing whatever is already on screen; only surface the error
-        // state if we never managed to load anything.
+
         if (active) setStatus((prev) => (prev === 'loading' ? 'error' : prev))
       }
     }
 
     loadReviews()
 
-    // Refetch on an interval so new reviews (including ones added by other
-    // users) appear without a manual page refresh.
+
     const intervalId = setInterval(loadReviews, POLL_INTERVAL)
 
-    // Also refetch as soon as the tab/window regains focus, so coming back
-    // after submitting a review shows it right away.
+
     const onFocus = () => loadReviews()
     window.addEventListener('focus', onFocus)
 
@@ -54,7 +70,7 @@ function ReviewCardPopulater({ limit }) {
       clearInterval(intervalId)
       window.removeEventListener('focus', onFocus)
     }
-  }, [])
+  }, [filterKey])
 
   if (status === 'loading') {
     return <p className="review-feed-message">Loading reviews…</p>
@@ -81,11 +97,15 @@ function ReviewCardPopulater({ limit }) {
           key={review._id}
           floor={`${review.building} — ${review.floor}`}
           review={review.description}
+          dateAdded={review.dateAdded}
           supplies={review.ratings?.supplies ?? 0}
           footTraffic={review.ratings?.footTraffic ?? 0}
           cleanliness={review.ratings?.cleanliness ?? 0}
           aesthetics={review.ratings?.aesthetic ?? 0}
-          image={imageSrc(review.image)}
+          image={
+            imageSrc(review.image) ??
+            getRestroomPhoto(review.floor, review.restroom, review.gender)
+          }
           imageAlt={`${review.building} ${review.floor} restroom`}
         />
       ))}

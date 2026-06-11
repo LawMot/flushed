@@ -40,6 +40,12 @@
   font-weight: 600;
 }
 
+.review-date {
+  color: #333;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .review-text-box {
   min-width: 0;
   background: white;

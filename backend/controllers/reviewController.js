@@ -1,10 +1,7 @@
 import Review from '../models/Review.js'
 
-// Build the ratings object whether it arrives as nested JSON (ratings.supplies)
-// or as flat multipart fields (supplies, footTraffic, ...).
 function parseRatings(body) {
   if (body.ratings) {
-    // Multipart sends nested objects as a JSON string; JSON sends a real object.
     return typeof body.ratings === 'string' ? JSON.parse(body.ratings) : body.ratings
   }
   return {
@@ -15,7 +12,6 @@ function parseRatings(body) {
   }
 }
 
-// POST /api/reviews  -> create a review (the CreateReview "Save Changes" action)
 export async function createReview(req, res) {
   try {
     const { building, floor, restroom, gender, description } = req.body
@@ -29,7 +25,6 @@ export async function createReview(req, res) {
       ratings: parseRatings(req.body),
     })
 
-    // req.file is set by multer when an image is uploaded via multipart/form-data.
     if (req.file) {
       review.image = {
         data: req.file.buffer.toString('base64'),
@@ -44,7 +39,6 @@ export async function createReview(req, res) {
   }
 }
 
-// GET /api/reviews  -> list reviews, newest first, with optional filters
 export async function getReviews(req, res) {
   try {
     const { building, floor, restroom, gender } = req.query
@@ -61,7 +55,6 @@ export async function getReviews(req, res) {
   }
 }
 
-// GET /api/reviews/:id  -> one review
 export async function getReviewById(req, res) {
   try {
     const review = await Review.findById(req.params.id)
@@ -72,7 +65,6 @@ export async function getReviewById(req, res) {
   }
 }
 
-// PUT /api/reviews/:id  -> update a review (e.g. from EditReview)
 export async function updateReview(req, res) {
   try {
     const update = { ...req.body }
@@ -97,7 +89,6 @@ export async function updateReview(req, res) {
   }
 }
 
-// DELETE /api/reviews/:id
 export async function deleteReview(req, res) {
   try {
     const review = await Review.findByIdAndDelete(req.params.id)

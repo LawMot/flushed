@@ -8,8 +8,7 @@ import {
   deleteReview,
 } from '../controllers/reviewController.js'
 
-// Keep the uploaded image in memory so we can store it inline in MongoDB.
-// Limit to 5 MB and only allow png/jpeg (matches CreateReview's accept rule).
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },

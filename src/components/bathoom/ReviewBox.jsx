@@ -19,6 +19,7 @@ function Stars({ value = 0, max = 5 }) {
 function ReviewBox({
   floor,
   review,
+  dateAdded,
   supplies = 0,
   footTraffic = 0,
   cleanliness = 0,
@@ -32,6 +33,9 @@ function ReviewBox({
         <div className="review-header">
           <h2 className="review-floor">{floor}</h2>
           <span className="review-subtitle">Most Recent Review:</span>
+          {dateAdded && (
+            <span className="review-date">Added {dateAdded}</span>
+          )}
         </div>
 
         <div className="review-text-box">

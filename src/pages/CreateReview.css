@@ -1,4 +1,3 @@
-/* Dim + blur everything behind the popup */
 .cr-overlay {
   position: fixed;
   inset: 0;
@@ -12,7 +11,6 @@
   -webkit-backdrop-filter: blur(4px);
 }
 
-/* Main popup box: fixed size, nav-bar-blue -> white gradient, rounded */
 .cr-box {
   width: 774px;
   height: 682px;
@@ -36,13 +34,11 @@
   color: #000;
 }
 
-/* Top section: dropdowns on the left, genders + dropzone on the right */
 .cr-top {
   display: flex;
   gap: 28px;
 }
 
-/* Left column: dropdowns stacked above the rating categories */
 .cr-left {
   display: flex;
   flex-direction: column;
@@ -76,7 +72,6 @@
   gap: 16px;
 }
 
-/* Gender icons: grey by default, black when selected, evenly spaced */
 .cr-genders {
   display: flex;
   justify-content: space-evenly;
@@ -96,16 +91,13 @@
   width: 44px;
   height: 44px;
   object-fit: contain;
-  /* default grey icons stay grey */
   transition: filter 0.12s ease;
 }
 
 .cr-gender.selected img {
-  /* turn the grey SVG fully black while selected */
   filter: brightness(0);
 }
 
-/* Drag & drop image area */
 .cr-dropzone {
   flex: 1;
   min-height: 150px;
@@ -137,7 +129,6 @@
   object-fit: contain;
 }
 
-/* Rating categories */
 .cr-categories {
   display: flex;
   flex-direction: column;
@@ -157,7 +148,6 @@
   color: #000;
 }
 
-/* Star rating with half-star support */
 .cr-stars {
   display: inline-flex;
   gap: 4px;
@@ -213,7 +203,6 @@
   right: 0;
 }
 
-/* Description box with custom placeholder behavior */
 .cr-desc {
   position: relative;
   margin: 0 auto;
@@ -242,10 +231,9 @@
   left: 16px;
   color: #888;
   font-size: 16px;
-  pointer-events: none; /* clicks pass through to the textarea */
+  pointer-events: none; 
 }
 
-/* Save button */
 .cr-save {
   align-self: center;
   margin-top: auto;
