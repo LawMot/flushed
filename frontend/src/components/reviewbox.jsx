@@ -1,5 +1,5 @@
 import './ReviewBox.css'
-import defaultRestroom from '../assets/bathroomPhotos/1stFloorMenR115.jpg'
+import defaultRestroom from '../../assets/bathroomPhotos/1stFloorMenR115.jpg'
 
 function Stars({ value = 0, max = 5 }) {
   return (
