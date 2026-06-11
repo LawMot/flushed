@@ -12,6 +12,31 @@ function LogIn() {
 
     const [errors, setErrors] = useState({});
 
+    useEffect(() => {
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('http://localhost:5000/auth/me', {
+                    method: 'GET',
+                    credentials: 'include' 
+                });
+                const data = await response.json();
+                
+                if (data.isAuthenticated) {
+                    if (data.user) {
+                        localStorage.setItem('display_name', data.user.display_name);
+                        localStorage.setItem('email', data.user.email);
+                        localStorage.setItem('userId', data.user.userId);
+                    }
+                    navigate('/home');
+                }
+            } catch (err) {
+                console.error("Auth check failed", err);
+            }
+        }
+        
+        checkAuthStatus();
+    }, [navigate]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -86,7 +111,9 @@ function LogIn() {
     }
 }
 
-    
+ const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5000/auth/google';
+};   
     
     return (
         <>
@@ -122,6 +149,18 @@ function LogIn() {
                     </p>
                     <input type="submit" value="Log In" className='login'/>
                     </form>
+                    <div className='login-center login-or'>
+                        — OR —
+                    </div>
+                    <div className='login-center'>
+                        <button 
+                            type="button" 
+                            onClick={handleGoogleLogin} 
+                            className="login-google" 
+                        >
+                            Log In with Google
+                        </button>
+                    </div>
                     <p className='login-small-text'>Don't have an account?</p>
                     <a className='login-switch' href='/signUp'>Create Account</a>
                 </div>
