@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 
 function ProfileCard() {
     const [name, setName] = useState('');
-    const [email, setEmail] = useState(localStorage.getItem('email') || 'Email');
+    const [email, setEmail] = useState('');
     const [pfp, setPfp] = useState('');
     const [rankName, setRankName] = useState('Newbie');
     const [experience, setExperience] = useState( Number(localStorage.getItem('experience')) || 0);

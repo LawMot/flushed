@@ -12,6 +12,31 @@ function LogIn() {
 
     const [errors, setErrors] = useState({});
 
+    useEffect(() => {
+        async function checkAuthStatus() {
+            try {
+                const response = await fetch('http://localhost:5000/auth/me', {
+                    method: 'GET',
+                    credentials: 'include' 
+                });
+                const data = await response.json();
+                
+                if (data.isAuthenticated) {
+                    if (data.user) {
+                        localStorage.setItem('display_name', data.user.display_name);
+                        localStorage.setItem('email', data.user.email);
+                        localStorage.setItem('userId', data.user.userId);
+                    }
+                    navigate('/home');
+                }
+            } catch (err) {
+                console.error("Auth check failed", err);
+            }
+        }
+        
+        checkAuthStatus();
+    }, [navigate]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
