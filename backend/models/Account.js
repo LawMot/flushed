@@ -17,6 +17,12 @@ const AccountSchema = new mongoose.Schema({
         default: 'http://localhost:5173/src/assets/defaultPfp.png'
     },
 
+    role: {
+        type: String,
+        enum: ['user', 'admin'], 
+        default: 'user'
+    },
+    
     googleId: { 
         type: String, 
         unique: true, 
