@@ -8,7 +8,7 @@ function SmallProfile() {
     const [name, setName] = useState(localStorage.getItem('display_name') || 'Display Name');
     const [xp, setXp] = useState(localStorage.getItem('experience') || 0);
     const [reviews, setReviews] = useState(0);
-    const [pfp, setPfp] = useState(defaultPfp);
+    const [pfp, setPfp] = useState(localStorage.getItem('pfp') || defaultPfp);
 
     async function getReviews() {
         const response = await fetch('http://localhost:5000/reviews/' + localStorage.getItem('userId'), { credentials: 'include' });
@@ -36,17 +36,17 @@ function SmallProfile() {
                     localStorage.setItem('experience', user.experience);
                     setXp(user.experience || 0);
                     
-                    localStorage.setItem('pfp', user.profile_pic)
+                    localStorage.setItem('pfp', user.profile_pic || defaultPfp);
                     setPfp(user.profile_pic || defaultPfp);
 
-                    localStorage.setItem('userId', user.userId);
+                    localStorage.setItem('userId', user._id || user.userId || '');
                     getReviews();
                 }
             })
             .catch(err => {
                 console.error("Session verification failed in SmallProfile:", err);
             });
-    });
+    }, []);
 
     return (
         <div className='gradient' id='smallProfile'>
