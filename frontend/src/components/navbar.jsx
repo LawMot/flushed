@@ -11,7 +11,7 @@ function NavBar({ logo, onCreateReview }) {
   const [showCreate, setShowCreate] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
-  const isAuthPage = location.pathname === '/' || location.pathname === '/signUp'
+  const isAuthPage = location.pathname === '/' || location.pathname === '/signUp' || location.pathname === '/admin'
 
   const handleCreateReview = () => {
     setShowCreate(true)

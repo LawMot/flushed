@@ -75,7 +75,8 @@ function LogIn() {
         localStorage.setItem('experience', data.experience);
         localStorage.setItem('password', data.password);
         localStorage.setItem('userId', data.userId);
-        if (data.email === 'admin@flushed.com') {
+        localStorage.setItem('role', data.role);
+        if (data.role === 'admin') {
             navigate('/admin');
         } else {
             navigate('/home');

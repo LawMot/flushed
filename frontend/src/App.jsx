@@ -22,7 +22,7 @@ function App() {
         <Route path='/createReview' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>
         <Route path='/editReview' element={<ProtectedRoute><EditReview/></ProtectedRoute>}/>
         <Route path='/bathroom' element={<ProtectedRoute><Bathroom/></ProtectedRoute>}/>
-        <Route path='/admin' element={<ProtectedRoute><Admin/></ProtectedRoute>}/>
+        <Route path='/admin' element={<ProtectedRoute allowedRoles={['admin']}><Admin/></ProtectedRoute>}/>
       </Routes>
   )
 }

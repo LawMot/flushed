@@ -12,7 +12,13 @@ const AccountSchema = new mongoose.Schema({
 
     email: String,
 
-    profile_pic: String
+    profile_pic: String,
+
+    role: {
+        type: String,
+        enum: ['user', 'admin'], 
+        default: 'user'
+    }
 });
 
 module.exports = mongoose.model("Account", AccountSchema);
