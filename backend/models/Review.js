@@ -1,4 +1,5 @@
-import mongoose from 'mongoose'
+// import mongoose from 'mongoose'
+const mongoose = require('mongoose');
 
 // Sub-document for the four star ratings shown on a ReviewBox / CreateReview.
 // Half-stars are allowed, so values can be 0, 0.5, 1, ... 5.
@@ -34,5 +35,19 @@ const reviewSchema = new mongoose.Schema(
   },
   { timestamps: true } // adds createdAt / updatedAt
 )
+module.exports = mongoose.model('Review', reviewSchema);
 
-export default mongoose.model('Review', reviewSchema)
+// export default mongoose.model('Review', reviewSchema)
+// const mongoose = require('mongoose');
+
+// const ReviewSchema = new mongoose.Schema({
+//     userId: String,
+//     body: String,
+//     gender: String,
+//     supplies: Number,
+//     foot_traffic: Number,
+//     cleanliness: Number,
+//     aesthetics: Number
+// });
+
+// module.exports = mongoose.model('Review', ReviewSchema);

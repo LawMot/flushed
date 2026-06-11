@@ -1,12 +1,14 @@
-import { Router } from 'express'
-import multer from 'multer'
-import {
+const { Router } = require('express');
+const multer = require('multer');
+
+const {
   createReview,
   getReviews,
   getReviewById,
   updateReview,
   deleteReview,
-} from '../controllers/reviewController.js'
+} = require('../controllers/reviewController');
+
 
 // Keep the uploaded image in memory so we can store it inline in MongoDB.
 // Limit to 5 MB and only allow png/jpeg (matches CreateReview's accept rule).
@@ -27,4 +29,4 @@ router.post('/', upload.single('image'), createReview)
 router.put('/:id', upload.single('image'), updateReview)
 router.delete('/:id', deleteReview)
 
-export default router
+module.exports = router;
