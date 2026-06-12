@@ -18,7 +18,6 @@ function Reviews() {
             });
 
             const reviews = await response.json();
-            console.log('reviews:', reviews);
 
             setMyReviews(reviews || []);
             setError(null);
@@ -31,7 +30,7 @@ function Reviews() {
 
     useEffect(() => {
         getMyReviews();
-    }, []);
+    }, [])
 
     return (
         <div id="reviews-page">
@@ -52,6 +51,7 @@ function Reviews() {
                     cleanliness={review.ratings?.cleanliness ?? 0}
                     aesthetics={review.ratings?.aesthetic ?? 0}
                     image={review.image?.data ? `data:${review.image.contentType};base64,${review.image.data}` : undefined}
+                    reviewId={review._id}
                 />
             ))}
         </div>

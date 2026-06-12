@@ -3,6 +3,7 @@ import defaultRestroom from '../../assets/bathroomPhotos/1stFloorMenR115.jpg'
 import female from '../../assets/genderIcons/smallBlueFemale.svg'
 import male from '../../assets/genderIcons/smallBlueMale.svg'
 import neutral from '../../assets/genderIcons/smallBlueNeutral.svg'
+import trash from '../../assets/trash.svg'
 
 function Stars({ value = 0, max = 5 }) {
   return (
@@ -30,12 +31,36 @@ function ReviewBox({
   aesthetics = 0,
   image = defaultRestroom,
   imageAlt = 'Restroom photo',
+  reviewId,
 }) {
+
+  async function deleteReview() {
+    await fetch(
+      'http://localhost:5000/reviews/'
+      + reviewId + '/delete',
+      {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }
+    );
+
+    getMyReviews();
+  }
+
   return (
     <div className="review-box">
       <div className="review-main">
         <div className="review-header">
-          <h2 className="review-floor">{floor}</h2>
+          <h2 className="review-floor">
+            {reviewId && <button className='delete-review' onClick={deleteReview}>
+              <img src={trash} alt='Trash Icon'/>
+            </button>}
+
+            {floor}
+          </h2>
           {dateAdded && (
             <span className="review-date">{dateAdded}</span>
           )}

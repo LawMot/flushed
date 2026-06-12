@@ -15,9 +15,10 @@ function parseRatings(body) {
 async function createReview(req, res) {
   try {
     const { building, floor, restroom, gender, description } = req.body
+    const userId = req.user?.id || req.user?._id || req.body.userId
 
     const review = new Review({
-      userId: req.user ? req.user._id : undefined,
+      userId,
       building,
       floor,
       restroom,

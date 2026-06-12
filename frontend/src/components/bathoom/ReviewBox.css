@@ -126,3 +126,20 @@
   width: min-content;
   height: min-content;
 }
+
+.review-right {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+.delete-review {
+  border: none;
+  padding: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding-right: 15px;
+}
+
+.delete-review:hover {
+  filter: brightness(110%);
+}

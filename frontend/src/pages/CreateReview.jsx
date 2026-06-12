@@ -100,6 +100,7 @@ function CreateReview({ open, onClose, onSave }) {
     form.append('gender', gender)
     form.append('description', description)
     form.append('ratings', JSON.stringify(ratings))
+    form.append('userId', localStorage.getItem('userId'))
 
     try {
       setSaving(true)

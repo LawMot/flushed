@@ -316,6 +316,10 @@ app.delete('/admin/accounts/:userId', checkAuth, isAdmin, async (req, res) => {
   }
 });
 
+app.delete('/reviews/:reviewId/delete', checkAuth, async (req, res) => {
+  const result = await Review.findByIdAndDelete(req.params.reviewId);
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
