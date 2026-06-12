@@ -137,7 +137,7 @@
   padding: none;
   background-color: transparent;
   cursor: pointer;
-  padding-right: 15px;
+  padding-left: 20px;
 }
 
 .delete-review:hover {

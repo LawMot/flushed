@@ -55,11 +55,11 @@ function ReviewBox({
       <div className="review-main">
         <div className="review-header">
           <h2 className="review-floor">
+            {floor}
+
             {reviewId && <button className='delete-review' onClick={deleteReview}>
               <img src={trash} alt='Trash Icon'/>
             </button>}
-
-            {floor}
           </h2>
           {dateAdded && (
             <span className="review-date">{dateAdded}</span>
