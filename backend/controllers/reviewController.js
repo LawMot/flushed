@@ -17,6 +17,7 @@ async function createReview(req, res) {
     const { building, floor, restroom, gender, description } = req.body
 
     const review = new Review({
+      userId: req.user ? req.user._id : undefined,
       building,
       floor,
       restroom,

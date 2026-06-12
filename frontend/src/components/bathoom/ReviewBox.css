@@ -10,6 +10,8 @@
   box-sizing: border-box;
   text-align: left;
   max-width: 100%;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
 }
 
 .review-main {
@@ -56,6 +58,7 @@
   overflow: hidden;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .review-text {
@@ -114,4 +117,12 @@
   object-fit: cover;
   border-radius: 14px;
   align-self: center;
+}
+
+.review-gender {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: min-content;
+  height: min-content;
 }

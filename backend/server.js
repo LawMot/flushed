@@ -214,8 +214,9 @@ app.get('/check-auth', (req, res) => {
 
 app.get('/reviews/:userId', checkAuth, async(req, res) => {
   const reviews = await Review.find({
-    userId: req.params.userId
+    userId: req.params.userId,
   });
+
   res.json(reviews);
 });
 
