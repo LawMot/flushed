@@ -32,22 +32,31 @@ function ReviewBox({
   image = defaultRestroom,
   imageAlt = 'Restroom photo',
   reviewId,
+  loadReviews
 }) {
 
   async function deleteReview() {
-    await fetch(
+    console.log('deleting');
+
+    try {
+      const response = await fetch(
       'http://localhost:5000/reviews/'
       + reviewId + '/delete',
-      {
-        method: 'DELETE',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      }
-    );
+        {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        }
+      );
 
-    getMyReviews();
+      await loadReviews();
+
+    } catch(error) {
+      console.log('Error while deleting. :(');
+      return;
+    }
   }
 
   return (
@@ -57,9 +66,11 @@ function ReviewBox({
           <h2 className="review-floor">
             {floor}
 
-            {reviewId && <button className='delete-review' onClick={deleteReview}>
-              <img src={trash} alt='Trash Icon'/>
-            </button>}
+            {reviewId && 
+              <button className='delete-review' onClick={deleteReview}>
+                <img src={trash} alt='Trash Icon'/>
+              </button>
+            }
           </h2>
           {dateAdded && (
             <span className="review-date">{dateAdded}</span>

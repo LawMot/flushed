@@ -12,7 +12,7 @@ function Reviews() {
             return;
         }
 
-        try {
+        try {            
             const response = await fetch('http://localhost:5000/reviews/' + userId, {
                 credentials: 'include',
             });
@@ -52,6 +52,7 @@ function Reviews() {
                     aesthetics={review.ratings?.aesthetic ?? 0}
                     image={review.image?.data ? `data:${review.image.contentType};base64,${review.image.data}` : undefined}
                     reviewId={review._id}
+                    loadReviews={getMyReviews}
                 />
             ))}
         </div>

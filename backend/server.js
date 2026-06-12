@@ -318,6 +318,11 @@ app.delete('/admin/accounts/:userId', checkAuth, isAdmin, async (req, res) => {
 
 app.delete('/reviews/:reviewId/delete', checkAuth, async (req, res) => {
   const result = await Review.findByIdAndDelete(req.params.reviewId);
+
+  if (!result) {
+    return res.status(404).json({ message: 'Review not found.'});
+  }
+  return res.status(200).json({ message: 'Review successfully deleted.' });
 });
 
 const PORT = process.env.PORT || 5000;
