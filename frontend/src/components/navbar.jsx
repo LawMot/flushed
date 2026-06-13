@@ -29,7 +29,7 @@ function NavBar({ logo, onCreateReview }) {
   return (
     <nav id="navbar">
       <div className="navbar-inner">
-        <Link to="/" className="navbar-link" id='navbar-brand'>
+        <Link to="/home" className="navbar-link" id='navbar-brand'>
           <span className="navbar-title">f</span>
           <img className="navbar-logo" src={logoToilet} alt="flushed toilet logo" />
           <span className="navbar-title">ushed</span>
