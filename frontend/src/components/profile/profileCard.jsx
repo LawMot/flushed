@@ -14,9 +14,21 @@ function ProfileCard() {
     const [pfp, setPfp] = useState(localStorage.getItem('pfp') || defaultPfp);
     const [selectedPfp, setSelectedPfp] = useState(null);
     const [rankName, setRankName] = useState('Newbie');
-    const [experience, setExperience] = useState( Number(localStorage.getItem('experience')) || 0);
+    const [experience, setExperience] = useState( Number(localStorage.getItem('experience')) || -1);
     const [rankTotal, setRankTotal] = useState(30);
     const [isGoogleUser, setIsGoogleUser] = useState(false);
+
+    async function getExperience() {
+        const response = await fetch('http://localhost:5000/reviews/' + localStorage.getItem('userId'), { credentials: 'include' });
+        const data = await response.json();
+        if (Array.isArray(data)) {
+            localStorage.setItem('experience', data.length * 10);
+            setExperience(data.length * 10)
+        } else {
+            localStorage.setItem('experience', 0);
+            setExperience(0);
+        }
+    }
 
     useEffect(() => {
         fetch('http://localhost:5000/auth/me', {
@@ -64,6 +76,8 @@ function ProfileCard() {
             .catch(err =>
                 console.error('Session fetch failed:', err)
             );
+
+        getExperience();
     }, []);
 
     useEffect(() => {

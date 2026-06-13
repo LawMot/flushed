@@ -12,6 +12,7 @@ const ratingsSchema = new mongoose.Schema(
 
 const reviewSchema = new mongoose.Schema(
   {
+    userId: { type: String },
     building: { type: String, required: true, trim: true },
     floor: { type: String, required: true, trim: true },
     restroom: { type: String, trim: true },
