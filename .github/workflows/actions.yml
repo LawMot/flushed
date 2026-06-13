@@ -1,0 +1,39 @@
+name: Repository Secrets
+on: 
+    push: 
+        branches: [main]
+    workflow_dispatch: #
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: '24.14.1'
+                cache: 'npm'
+
+            - name: Create .env file from GitHub Secrets
+              env:
+                MONGODB_URI: ${{ secrets.MONGODB_URI }}
+                GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+                GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+                SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+                PORT: ${{ secrets.PORT }}
+                CLIENT_ORIGIN: ${{ secrets.CLIENT_ORIGIN }}
+              run: |
+                echo "MONGODB_URI=$MONGODB_URI" >> backend/.env
+                echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> backend/.env
+                echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> backend/.env
+                echo "SESSION_SECRET=$SESSION_SECRET" >> backend/.env
+                echo "PORT=$PORT" >> backend/.env
+                echo "CLIENT_ORIGIN=$CLIENT_ORIGIN" >> backend/.env
+
+            - name: Install dependencies
+              run: |
+                cd backend
+                npm install
