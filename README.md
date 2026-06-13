@@ -81,6 +81,10 @@ After both servers are running, navigate to:
 ```text
 http://localhost:5173/
 ```
+To run from the admin side, log in as admin and navigate to:
+```text
+http://localhost:5173/admin
+```
 
 ---
 
