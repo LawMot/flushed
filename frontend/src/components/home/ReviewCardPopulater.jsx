@@ -93,6 +93,7 @@ function ReviewCardPopulater({ limit, filter, onReviewsLoaded }) {
           floor={`${review.building} — ${review.floor}`}
           review={review.description}
           dateAdded={review.dateAdded}
+          gender={review.gender}
           supplies={review.ratings?.supplies ?? 0}
           footTraffic={review.ratings?.footTraffic ?? 0}
           cleanliness={review.ratings?.cleanliness ?? 0}

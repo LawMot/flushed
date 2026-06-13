@@ -215,8 +215,9 @@ app.get('/check-auth', (req, res) => {
 
 app.get('/reviews/:userId', checkAuth, async(req, res) => {
   const reviews = await Review.find({
-    userId: req.params.userId
+    userId: req.params.userId,
   });
+
   res.json(reviews);
 });
 
@@ -308,6 +309,15 @@ app.delete('/admin/accounts/:userId', checkAuth, isAdmin, async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Server error deleting account', error: error.message });
   }
+});
+
+app.delete('/reviews/:reviewId/delete', checkAuth, async (req, res) => {
+  const result = await Review.findByIdAndDelete(req.params.reviewId);
+
+  if (!result) {
+    return res.status(404).json({ message: 'Review not found.'});
+  }
+  return res.status(200).json({ message: 'Review successfully deleted.' });
 });
 
 const PORT = process.env.PORT || 5000;
