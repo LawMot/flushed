@@ -58,7 +58,7 @@ function NavBar({ logo, onCreateReview }) {
         <Link to="/" className="navbar-link" id='navbar-brand'>
           <span className="navbar-title">f</span>
           <img className="navbar-logo" src={logoToilet} alt="flushed toilet logo" />
-          <span className="navbar-title">ished</span>
+          <span className="navbar-title">ushed</span>
         </Link>
         
         {!isAuthPage && (
