@@ -16,7 +16,7 @@
 .review-feed {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 10px;
 }
 
 .review-feed-message {
