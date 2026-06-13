@@ -10,6 +10,7 @@ import EditReview from './pages/EditReview';
 import Bathroom from './pages/Bathroom';
 import Admin from './pages/Admin';
 import ProtectedRoute from './ProtectedRoute';
+import SearchPage from './components/SearchPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/createReview' element={<ProtectedRoute><CreateReview/></ProtectedRoute>}/>
         <Route path='/editReview' element={<ProtectedRoute><EditReview/></ProtectedRoute>}/>
         <Route path='/bathroom' element={<ProtectedRoute><Bathroom/></ProtectedRoute>}/>
+        <Route path="/search" element={<ProtectedRoute><SearchPage /></ProtectedRoute>} />
         <Route path='/admin' element={<ProtectedRoute allowedRoles={['admin']}><Admin/></ProtectedRoute>}/>
       </Routes>
   )

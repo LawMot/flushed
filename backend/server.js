@@ -38,6 +38,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 const Account = require('./models/Account');
 const Review = require('./models/Review');
+const Bathroom = require('./models/Bathroom');
 
 passport.use(
   new GoogleStrategy(
@@ -268,12 +269,6 @@ app.patch('/account/:userId/update-pfp', checkAuth, async(req, res) => {
   res.json(account);
 });
 
-// const isAuthenticated = (req, res, next) => {
-//     if (req.isAuthenticated()) {
-//         return next(); 
-//     }
-//     res.status(401).json({ success: false, message: "Unauthorized: Please log in first" });
-// };
 
 const isAdmin = (req, res, next) => {
     if (req.user && req.user.role === 'admin') {

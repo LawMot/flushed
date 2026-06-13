@@ -50,7 +50,7 @@ function SmallProfile() {
 
     return (
         <div className='gradient' id='smallProfile'>
-            <img id='pfp' src={pfp} alt='User Profile Picture'/>
+            <img id='pfp' src={pfp} alt='User Profile Picture' referrerPolicy="no-referrer"/>
             <p id='name'>{name}</p>
             <SmallRank xp={xp} />
             <hr/>
