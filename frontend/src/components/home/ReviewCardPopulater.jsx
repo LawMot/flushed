@@ -25,7 +25,7 @@ function byNewest(a, b) {
   return new Date(b.createdAt ?? 0) - new Date(a.createdAt ?? 0)
 }
 
-function ReviewCardPopulater({ limit, filter }) {
+function ReviewCardPopulater({ limit, filter, onReviewsLoaded }) {
   const [reviews, setReviews] = useState([])
   const [status, setStatus] = useState('loading')
 
@@ -41,17 +41,20 @@ function ReviewCardPopulater({ limit, filter }) {
         const data = await res.json()
         if (!active) return
         const list = Array.isArray(data) ? [...data].sort(byNewest) : []
+        
         setReviews(list)
         setStatus('ready')
+
+        if (onReviewsLoaded) {
+          onReviewsLoaded(list)
+        }
       } catch (err) {
         console.error('Failed to load reviews:', err)
-
         if (active) setStatus((prev) => (prev === 'loading' ? 'error' : prev))
       }
     }
 
     loadReviews()
-
     const intervalId = setInterval(loadReviews, POLL_INTERVAL)
 
     const onFocus = () => loadReviews()
@@ -96,7 +99,7 @@ function ReviewCardPopulater({ limit, filter }) {
           aesthetics={review.ratings?.aesthetic ?? 0}
           image={
             imageSrc(review.image) ??
-            getRestroomPhoto(review.floor, review.restroom, review.gender)
+            getRestroomPhoto(review.building, review.floor, review.restroom, review.gender)
           }
           imageAlt={`${review.building} ${review.floor} restroom`}
         />

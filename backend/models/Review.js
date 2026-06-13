@@ -17,7 +17,7 @@ const reviewSchema = new mongoose.Schema(
     restroom: { type: String, trim: true },
     gender: {
       type: String,
-      enum: ['female', 'male', 'nonbinary'],
+      enum: ['female', 'male', 'neutral'],
     },
     ratings: { type: ratingsSchema, default: () => ({}) },
     description: { type: String, trim: true, default: '' },
