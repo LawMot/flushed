@@ -18,6 +18,13 @@ jobs:
                 cache: 'npm'
 
             - name: Create .env file from GitHub Secrets
+              env:
+                MONGODB_URI: ${{ secrets.MONGODB_URI }}
+                GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+                GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+                SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+                PORT: ${{ secrets.PORT }}
+                CLIENT_ORIGIN: ${{ secrets.CLIENT_ORIGIN }}
               run: |
                 echo "MONGODB_URI=$MONGODB_URI" >> backend/.env
                 echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> backend/.env
