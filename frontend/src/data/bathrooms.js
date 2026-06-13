@@ -14,30 +14,46 @@ import floor4Men from '../assets/bathroomPhotos/4thFloorMen.jpg'
 import floor4ProfMen from '../assets/bathroomPhotos/4thFloorProfessorMen.jpg'
 import floor4ProfWomen from '../assets/bathroomPhotos/4thFloorProfessorWomen.jpg'
 import floor4Women from '../assets/bathroomPhotos/4thFloorWomen.jpg'
+import Hub from '../assets/bathroomPhotos/Hub.jpg'
+import SSC from '../assets/bathroomPhotos/SSC.png'
 
 const PHOTOS = {
-  'floor 1|past the transfer center|male': floor1MenR115,
-  'floor 1|past the transfer center|female': floor1WomenR115,
-  'floor 1|near the lab|male': floor1MenR145,
-  'floor 1|near the lab|female': floor1WomenR144,
+  'the hub': Hub,
+  'student success center': SSC,
 
-  'floor 2|outside|male': floor2OutsideMen,
-  'floor 2|outside|female': floor2OutsideWomen,
-  'floor 2|main|male': floor2Men,
-  'floor 2|main|female': floor2Women,
+  'winston chung hall|floor 1|past the transfer center|male': floor1MenR115,
+  'winston chung hall|floor 1|past the transfer center|female': floor1WomenR115,
+  'winston chung hall|floor 1|near the lab|male': floor1MenR145,
+  'winston chung hall|floor 1|near the lab|female': floor1WomenR144,
 
-  'floor 3|professor|male': floor3ProfMen,
-  'floor 3|professor|female': floor3ProfWomen,
-  'floor 3|outside|male': floor3Men,
-  'floor 3|outside|female': floor3Women,
+  'winston chung hall|floor 2|outside|male': floor2OutsideMen,
+  'winston chung hall|floor 2|outside|female': floor2OutsideWomen,
+  'winston chung hall|floor 2|main|male': floor2Men,
+  'winston chung hall|floor 2|main|female': floor2Women,
 
-  'floor 4|professor|male': floor4ProfMen,
-  'floor 4|professor|female': floor4ProfWomen,
-  'floor 4|outside|male': floor4Men,
-  'floor 4|outside|female': floor4Women,
+  'winston chung hall|floor 3|professor|male': floor3ProfMen,
+  'winston chung hall|floor 3|professor|female': floor3ProfWomen,
+  'winston chung hall|floor 3|outside|male': floor3Men,
+  'winston chung hall|floor 3|outside|female': floor3Women,
+
+  'winston chung hall|floor 4|professor|male': floor4ProfMen,
+  'winston chung hall|floor 4|professor|female': floor4ProfWomen,
+  'winston chung hall|floor 4|outside|male': floor4Men,
+  'winston chung hall|floor 4|outside|female': floor4Women,
 }
 
-export function getRestroomPhoto(floor, restroom, gender) {
-  if (!floor || !restroom || !gender) return undefined
-  return PHOTOS[`${floor}|${restroom}|${gender}`.toLowerCase()]
+export function getRestroomPhoto(building, floor, restroom, gender) {
+  if (!building) return undefined
+
+  const normalizedBuilding = building.toLowerCase()
+  const normalizedFloor = typeof floor === 'number' ? `floor ${floor}` : floor
+
+  if (floor && restroom && gender) {
+    const specificKey = `${normalizedBuilding}|${normalizedFloor}|${restroom}|${gender}`.toLowerCase()
+    if (PHOTOS[specificKey]) {
+      return PHOTOS[specificKey]
+    }
+  }
+
+  return PHOTOS[normalizedBuilding]
 }

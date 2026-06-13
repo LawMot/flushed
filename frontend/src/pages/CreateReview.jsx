@@ -10,7 +10,7 @@ import grayNeutral from '../assets/genderIcons/largeGrayNeutral.svg'
 const GENDERS = [
   { key: 'female', icon: grayFemale, label: 'Female' },
   { key: 'male', icon: grayMale, label: 'Male' },
-  { key: 'nonbinary', icon: grayNeutral, label: 'Non-binary' },
+  { key: 'neutral', icon: grayNeutral, label: 'Neutral' },
 ]
 
 const CATEGORIES = [
@@ -20,14 +20,34 @@ const CATEGORIES = [
   { key: 'aesthetic', label: 'Aesthetics' },
 ]
 
-const BUILDINGS = ['Winston Chung Hall']
-const FLOORS = ['Floor 1', 'Floor 2', 'Floor 3', 'Floor 4']
+const BUILDINGS = ['Winston Chung Hall', 'The Hub', 'Student Success Center']
 
-const RESTROOMS_BY_FLOOR = {
-  'Floor 1': ['Past the Transfer Center', 'Near the Lab'],
-  'Floor 2': ['Outside', 'Main'],
-  'Floor 3': ['Professor', 'Outside'],
-  'Floor 4': ['Professor', 'Outside'],
+const BUILDING_CONFIGS = {
+  'Winston Chung Hall': {
+    floors: ['Floor 1', 'Floor 2', 'Floor 3', 'Floor 4'],
+    restrooms: {
+      'Floor 1': ['Past the Transfer Center', 'Near the Lab'],
+      'Floor 2': ['Outside', 'Main'],
+      'Floor 3': ['Professor', 'Outside'],
+      'Floor 4': ['Professor', 'Outside'],
+    }
+  },
+  'The Hub': {
+    floors: ['Floor 1', 'Floor 2', 'Floor 3'],
+    restrooms: {
+      'Floor 1': ['Main'],
+      'Floor 2': ['Main'],
+      'Floor 3': ['Main']
+    }
+  },
+  'Student Success Center': {
+    floors: ['Floor 1', 'Floor 2', 'Floor 3'],
+    restrooms: {
+      'Floor 1': ['Main'],
+      'Floor 2': ['Main'],
+      'Floor 3': ['Main']
+    }
+  }
 }
 
 function StarRating({ value, onChange }) {
@@ -85,11 +105,11 @@ function CreateReview({ open, onClose, onSave }) {
   const setRating = (key, val) =>
     setRatings((prev) => ({ ...prev, [key]: val }))
 
-  const previewPhoto = getRestroomPhoto(floor, restroom, gender)
+  const previewPhoto = getRestroomPhoto(building, floor, restroom, gender)
 
   const handleSave = async () => {
-    if (!building || !floor) {
-      alert('Please select a building and floor.')
+    if (!building || !floor || !restroom || !gender) {
+      alert('Please fill out all dropdown selections and gender.')
       return
     }
 
@@ -125,6 +145,8 @@ function CreateReview({ open, onClose, onSave }) {
 
   const showPlaceholder = !descFocused && description === ''
 
+  const activeConfig = BUILDING_CONFIGS[building] || { floors: [], restrooms: {} }
+
   return (
     <div className="cr-overlay" onClick={onClose}>
       <div className="cr-box" onClick={(e) => e.stopPropagation()}>
@@ -136,7 +158,11 @@ function CreateReview({ open, onClose, onSave }) {
               <select
                 className="cr-select"
                 value={building}
-                onChange={(e) => setBuilding(e.target.value)}
+                onChange={(e) => {
+                  setBuilding(e.target.value)
+                  setFloor('')
+                  setRestroom('')
+                }}
               >
                 <option value="">Select building</option>
                 {BUILDINGS.map((b) => (
@@ -151,10 +177,13 @@ function CreateReview({ open, onClose, onSave }) {
                   setFloor(e.target.value)
                   setRestroom('')
                 }}
+                disabled={!building}
               >
                 <option value="">Select floor</option>
-                {FLOORS.map((f) => (
-                  <option key={f} value={f}>{f}</option>
+                {activeConfig.floors.map((f) => (
+                  <option key={f} value={f}>
+                    {isNaN(f) ? f : `Floor ${f}`}
+                  </option>
                 ))}
               </select>
 
@@ -165,7 +194,7 @@ function CreateReview({ open, onClose, onSave }) {
                 disabled={!floor}
               >
                 <option value="">Select restroom</option>
-                {(RESTROOMS_BY_FLOOR[floor] || []).map((r) => (
+                {(activeConfig.restrooms[floor] || []).map((r) => (
                   <option key={r} value={r}>{r}</option>
                 ))}
               </select>
@@ -205,7 +234,7 @@ function CreateReview({ open, onClose, onSave }) {
                 <img
                   className="cr-dropzone-preview"
                   src={previewPhoto}
-                  alt={`${floor} ${restroom} restroom`}
+                  alt={`${building} restroom`}
                 />
               ) : (
                 <span className="cr-dropzone-text">waiting for your input...</span>
